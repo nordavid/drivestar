@@ -44,3 +44,97 @@ header #menu > :last-child {
     margin-left: 40px;
     border-radius: 24px;
 }
+
+main {
+    background-color: var(--light-grey);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main h5 {
+    margin-top: 56px;
+    color: var(--orange);
+    background-color: var(--orange-low-opacity);
+    text-transform: uppercase;
+    padding: 12px 24px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border-radius: 24px;
+}
+
+main h1 {
+    margin-top: 16px;
+    font-family: "Outfit", sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    text-align: center;
+    max-width: 736px;
+}
+
+main h1 .orange-gradient {
+    background: -webkit-linear-gradient(45deg, #efdc59, #ff9410);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}
+
+main p {
+    margin-top: 16px;
+    max-width: 496px;
+    color: var(--grey);
+    text-align: center;
+    line-height: 150%;
+}
+
+main #btn-start-learning {
+    margin-top: 32px;
+    padding: 8px 10px 8px 32px;
+    border-radius: 240px;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    font-size: 20px;
+    font-weight: 700;
+    background: rgb(49, 203, 83);
+    background: linear-gradient(-45deg, rgba(49, 203, 83, 1) 0%, rgba(82, 233, 116, 1) 100%);
+}
+
+main #btn-start-learning > :first-child {
+    background-color: var(--white);
+    padding: 10px;
+    border-radius: 100%;
+    margin-left: 16px;
+}
+
+main #features {
+    width: 1120px;
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 32px;
+    grid-row-gap: 0px;
+}
+
+main #features .feature-heading {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+}
+
+main #features .feature-heading h6 {
+    margin-left: 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+main #features .feature-container .feature-content {
+    margin-top: 16px;
+    border-radius: 24px;
+    height: 200px;
+    background-color: red;
+}
