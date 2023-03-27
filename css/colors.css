@@ -1,0 +1,13 @@
+:root {
+    --black: rgb(0, 0, 0);
+    --white: rgb(255, 255, 255);
+    --grey: rgb(129, 129, 129);
+    --light-grey: rgb(239, 239, 239);
+    --dark-grey: rgb(34, 32, 33);
+    --primary: rgb(254, 217, 23);
+    --secondary: rgb(49, 203, 83);
+    --secondary-light: rgb(82, 233, 116);
+    --accent: rgb(242, 73, 73);
+    --orange: rgb(251, 180, 39);
+    --orange-low-opacity: rgb(251, 180, 39, 0.15);
+}

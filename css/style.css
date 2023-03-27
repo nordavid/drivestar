@@ -1,0 +1,46 @@
+header {
+    background-color: var(--black);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 96px;
+}
+
+nav {
+    width: 1120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header #logo {
+    display: flex;
+    align-items: center;
+}
+
+header h2 {
+    color: var(--white);
+    margin-left: 12px;
+    font-family: "Outfit", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+header #menu > :first-child {
+    color: var(--white);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+header #menu > :last-child {
+    color: var(--black);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: var(--primary);
+    padding: 16px 24px;
+    margin-left: 40px;
+    border-radius: 24px;
+}
