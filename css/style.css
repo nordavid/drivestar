@@ -81,7 +81,7 @@ main h1 .orange-gradient {
     -moz-text-fill-color: transparent;
 }
 
-main p {
+main > p {
     margin-top: 16px;
     max-width: 496px;
     color: var(--grey);
@@ -99,7 +99,7 @@ main #btn-start-learning {
     font-size: 20px;
     font-weight: 700;
     background: rgb(49, 203, 83);
-    background: linear-gradient(-45deg, rgba(49, 203, 83, 1) 0%, rgba(82, 233, 116, 1) 100%);
+    background: linear-gradient(-45deg, rgb(49, 203, 83) 0%, rgb(82, 233, 116) 100%);
 }
 
 main #btn-start-learning > :first-child {
@@ -109,6 +109,8 @@ main #btn-start-learning > :first-child {
     margin-left: 16px;
 }
 
+/* Feature-Preview */
+
 main #features {
     width: 1120px;
     margin-top: 56px;
@@ -117,6 +119,7 @@ main #features {
     grid-template-rows: 1fr;
     grid-column-gap: 32px;
     grid-row-gap: 0px;
+    margin-bottom: 64px;
 }
 
 main #features .feature-heading {
@@ -136,5 +139,98 @@ main #features .feature-container .feature-content {
     margin-top: 16px;
     border-radius: 24px;
     height: 200px;
-    background-color: red;
+}
+
+/* Stats */
+
+main #features #stats .feature-content {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(-30deg, rgb(0, 0, 0) 0%, rgb(31, 31, 31) 100%);
+}
+
+/* Badges */
+
+main #features #badges .feature-content {
+    border: 0.5px solid #222021;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main #features #badges .feature-content #badges {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+main #features #badges .feature-content p {
+    margin-top: 16px;
+    color: var(--black);
+    width: 80%;
+    text-align: center;
+    line-height: 150%;
+}
+
+/* License */
+
+main #features #license .feature-content {
+    background: var(--primary);
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+main #features #license .feature-content #license-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+
+main #features #license .feature-content #license-logo {
+    display: flex;
+    align-items: center;
+}
+
+main #features #license .feature-content #license-logo img {
+    width: 19px;
+}
+
+main #features #license .feature-content #license-logo p {
+    margin-left: 8px;
+    font-family: "Outfit", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+main #features #license .feature-content #license-header > p {
+    text-transform: uppercase;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+main #features #license .feature-content #license-number {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+
+main #features #license .feature-content #license-number p {
+    font-family: "Roboto Mono", monospace;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+main #features #license .feature-content #license-footer {
+    margin-top: 8px;
+    background-color: var(--black);
+    color: var(--white);
+    font-family: "Roboto Mono", monospace;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 16px 24px;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
 }
