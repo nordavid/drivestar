@@ -5,10 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Drivestar</title>
         <link rel="icon" href="./img/favicon.ico" sizes="any" />
-        <link rel="stylesheet" href="./css/reset.css" />
-        <link rel="stylesheet" href="./css/colors.css" />
-        <link rel="stylesheet" href="./css/fonts.css" />
-        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="./css/general/reset.css" />
+        <link rel="stylesheet" href="./css/general/colors.css" />
+        <link rel="stylesheet" href="./css/general/fonts.css" />
+        <link rel="stylesheet" href="./css/pages/index.css" />
+        <script defer src="index.js"></script>
     </head>
     <body>
         <header>
@@ -18,8 +19,8 @@
                     <h2>Drivestar</h2>
                 </div>
                 <div id="menu">
-                    <a href="">Login</a>
-                    <a href="">Registrieren</a>
+                    <a href="./login.html">Login</a>
+                    <a href="./register.html">Registrieren</a>
                 </div>
             </nav>
         </header>
@@ -44,7 +45,26 @@
                         <img src="./img/icons/fill/chart.svg" />
                         <h6>Individuelle Statistiken</h6>
                     </div>
-                    <div class="feature-content"></div>
+                    <div class="feature-content">
+                        <div id="stats-left">
+                            <p>Kategorien</p>
+                            <div id="stats-bars">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div id="stats-divider"></div>
+                        <div id="stats-right">
+                            <p>Fortschritt</p>
+                            <div id="progress-container">
+                                <div id="progress-spinner"></div>
+                                <div id="progress-gradient"></div>
+                                <div id="middle-circle">60%</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="feature-container" id="badges">
                     <div class="feature-heading">
@@ -86,6 +106,6 @@
                 </div>
             </div>
         </main>
-        <script defer src="index.js"></script>
+        <footer><p>2023 &#124; David Einenkel</p></footer>
     </body>
 </html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Account erstellen</title>
+        <link rel="icon" href="./img/favicon.ico" sizes="any" />
+        <link rel="stylesheet" href="./css/general/reset.css" />
+        <link rel="stylesheet" href="./css/general/colors.css" />
+        <link rel="stylesheet" href="./css/general/fonts.css" />
+        <link rel="stylesheet" href="./css/pages/register.css" />
+        <script src="./components/component.js"></script>
+        <script src="./components/card/card.js"></script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div id="logo">
+                    <img src="./img/drivestar_logo.svg" alt="Logo" />
+                    <h2>Drivestar</h2>
+                </div>
+                <div id="menu">
+                    <a href="./login.html">Login</a>
+                    <a href="./index.html">Startseite</a>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <section>
+                <form id="register-form">
+                    <h1>Sag Hallo! &#128075;</h1>
+                    <h5>Erstelle jetzt deinen Account. Komplett kostenlos.</h5>
+
+                    <label for="form-name">Name*</label>
+                    <input
+                        type="text"
+                        id="form-name"
+                        name="form-name"
+                        placeholder="Maximiliana Musterfrau"
+                    />
+
+                    <label for="form-email">E-Mail*</label>
+                    <input
+                        type="email"
+                        id="form-email"
+                        name="form-email"
+                        placeholder="maximiliana.musterfrau@gmail.com"
+                    />
+
+                    <label for="form-password">Passwort*</label>
+                    <input
+                        type="password"
+                        id="form-password"
+                        name="form-password"
+                        placeholder="******************"
+                    />
+
+                    <label for="form-repassword">Passwort wiederholen*</label>
+                    <input
+                        type="password"
+                        id="form-repassword"
+                        name="form-repassword"
+                        placeholder="******************"
+                    />
+
+                    <label for="form-profilepicture">Profilbild auswählen*</label>
+                    <label for="form-profilepicture" id="upload-button">Datei auswählen</label>
+                    <input
+                        id="form-profilepicture"
+                        type="file"
+                        accept="image/jpeg, image/png, image/jpg"
+                    />
+
+                    <button type="submit">Account erstellen</button>
+                    <p id="login-link">
+                        Du hast bereits ein Konto? <a href="./login.html">Zum Login</a>
+                    </p>
+                </form>
+                <article>
+                    <h2>Unser Angebot</h2>
+                    <div class="feature-heading">
+                        <img src="./img/icons/fill/green_tick_circle.svg" />
+                        <h3>Achievements</h3>
+                    </div>
+                    <p>
+                        Trainiere täglich für Abzeichen und Erfolge! Du schaffst die Hälfte aller
+                        Fragen in einer Woche oder trainierst regelmäßig? Dafür wirst du mit einem
+                        Abzeichen ausgezeichnet.
+                    </p>
+                    <div class="feature-heading">
+                        <img src="./img/icons/fill/green_tick_circle.svg" />
+                        <h3>Lernfortschritt</h3>
+                    </div>
+                    <p>
+                        Verfolge deinen Fortschritt. Beantworte jede Frage einmal richtig um 100%
+                        abzuschließen.
+                    </p>
+                    <div class="feature-heading">
+                        <img src="./img/icons/fill/green_tick_circle.svg" />
+                        <h3>Zertifikat</h3>
+                    </div>
+                    <p>
+                        Nach erfolgreichem Abschluss aller Trainings und dem Bestehen der Prüfung
+                        erhältst du ein personalisiertes Zertifikat in Form unseres Drivestar
+                        Führerscheins!
+                    </p>
+                    <div class="license-container">
+                        <div id="license-header">
+                            <div id="license-logo">
+                                <img src="./img/drivestar_logo_dark.svg" alt="Logo dark" />
+                                <p>Drivestar</p>
+                            </div>
+                            <img id="license-image" src="./img/license_image_placeholder.svg" />
+                        </div>
+                        <div>
+                            <div id="license-number">
+                                <p id="license-id">1304 1603 2402</p>
+                                <img src="./img/license-barcode.svg" />
+                            </div>
+                            <div id="license-footer">
+                                <p id="license-name">Linda Sternschnuppe</p>
+                                <p id="license-date">04.03.23</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+        <footer><p>2023 &#124; David Einenkel</p></footer>
+
+        <script>
+            const input = document.querySelector("#form-profilepicture");
+            const output = document.querySelector("#license-image");
+            let imagesArray = [];
+
+            input.addEventListener("change", () => {
+                const file = input.files;
+                imagesArray.push(file[0]);
+
+                output.src = URL.createObjectURL(file[0]);
+            });
+
+            const inputName = document.querySelector("#form-name");
+            inputName.addEventListener("input", (e) => {
+                console.log(inputName.textContent);
+                document.querySelector("#license-name").textContent = inputName.value;
+
+                let num1 = Math.floor(Math.random() * 10000)
+                    .toString()
+                    .padStart(4, "0");
+                let num2 = Math.floor(Math.random() * 10000)
+                    .toString()
+                    .padStart(4, "0");
+                let num3 = Math.floor(Math.random() * 10000)
+                    .toString()
+                    .padStart(4, "0");
+
+                let string = num1 + " " + num2 + " " + num3;
+                document.querySelector("#license-id").textContent = string;
+            });
+
+            let today = new Date();
+            let day = today.getDate().toString().padStart(2, "0"); // add leading zero if necessary
+            let month = (today.getMonth() + 1).toString().padStart(2, "0"); // add leading zero if necessary
+            let year = today.getFullYear().toString().slice(-2); // get last two digits of year
+
+            let dateString = day + "." + month + "." + year;
+            document.querySelector("#license-date").textContent = dateString;
+        </script>
+    </body>
+</html>
