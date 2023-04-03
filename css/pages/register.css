@@ -117,6 +117,15 @@ form #upload-button {
     text-align: center;
     border-radius: 8px;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+form #upload-button:hover {
+    opacity: 0.7;
+}
+
+form #upload-button:active {
+    background-color: var(--grey);
 }
 
 form button {
