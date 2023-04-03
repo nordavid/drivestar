@@ -1,5 +1,5 @@
+// Preview profile picture on license after selecting
 const inputProfilepicture = document.querySelector("#form-profilepicture");
-
 inputProfilepicture.addEventListener("change", () => {
     console.log(inputProfilepicture);
     const uploadedFile = inputProfilepicture.files[0];
@@ -8,12 +8,19 @@ inputProfilepicture.addEventListener("change", () => {
     document.querySelector("#upload-button").textContent = uploadedFile.name;
 });
 
+// Change license name on input change
 const inputName = document.querySelector("#form-name");
 inputName.addEventListener("input", (e) => {
     document.querySelector("#license-name").textContent = inputName.value;
+
+    if (inputName.value == "") {
+        document.querySelector("#license-name").textContent = "Linda Sternschnuppe";
+    }
+
     document.querySelector("#license-id").textContent = getRandomLicenseNumber();
 });
 
+// Set license date
 document.querySelector("#license-date").textContent = getDateString();
 
 function getRandomLicenseNumber() {
@@ -39,6 +46,7 @@ function getDateString() {
     return day + "." + month + "." + year;
 }
 
+// Register user with request to api
 const registerForm = document.querySelector("#register-form");
 registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -46,5 +54,11 @@ registerForm.addEventListener("submit", async (e) => {
     console.log(formData);
 
     const response = await postRequest("account/register", formData);
-    console.log(response);
+    if (response.ok) {
+        const data = await response.json();
+        if (!data.error) {
+            console.log(data);
+            localStorage.setItem("jwtToken", data.payload);
+        }
+    }
 });

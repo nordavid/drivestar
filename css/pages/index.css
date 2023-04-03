@@ -42,7 +42,7 @@ header #menu > :last-child {
     background-color: var(--primary);
     padding: 16px 24px;
     margin-left: 40px;
-    border-radius: 12px;
+    border-radius: 80px;
 }
 
 main {

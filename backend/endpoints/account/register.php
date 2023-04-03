@@ -1,5 +1,6 @@
 <?php
 require_once('./utils/input_validation.php');
+require_once('./utils/image_upload.php');
 require_once("./utils/jwt_util.php");
 
 function registerHandler($username, $email, $password)
@@ -32,6 +33,8 @@ function registerHandler($username, $email, $password)
         $stmt->execute();
         $userId = $conn->lastInsertId();
 
+        upload_profilepicture($userId, "profilepicture_$userId");
+
 
         // Registered successful and logged in
         $userObj = ["user_id" => $userId, "username" => $username, "is_admin" => false];
@@ -58,4 +61,19 @@ function isEmailUsed($email)
         return true;
     }
     return false;
+}
+
+function upload_profilepicture($userId, $name)
+{
+    global $conn;
+
+    try {
+        $imgPath = upload_image("profilepicture", "profilepictures", $name, 5);
+        $stm = $conn->prepare('UPDATE user SET profilepicture = :imgPath WHERE id = :userId;');
+        $stm->bindParam(":imgPath", $imgPath, PDO::PARAM_STR);
+        $stm->bindParam(":userId", $userId, PDO::PARAM_STR);
+        $stm->execute();
+    } catch (Exception $e) {
+        die(errorMsg($e->getMessage()));
+    }
 }

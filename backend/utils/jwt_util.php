@@ -20,7 +20,7 @@ function create_token(array $userObj, int $expiresIn = 604800): string
     return $jwt;
 }
 
-function validate_token($jwt)
+function validate_token(string $jwt)
 {
     $parts = explode(".", $jwt);
     $header = $parts[0];
@@ -41,7 +41,7 @@ function validate_token($jwt)
     return true;
 }
 
-function get_auth_header()
+function get_auth_header(): string | null
 {
     $headers = null;
     if (isset($_SERVER['Authorization'])) {
@@ -57,7 +57,7 @@ function get_auth_header()
     return $headers;
 }
 
-function get_bearer_token()
+function get_bearer_token(): string | null
 {
     $headers = get_auth_header();
 
@@ -71,12 +71,12 @@ function get_bearer_token()
     return null;
 }
 
-function base64url_encode($data)
+function base64url_encode($data): string
 {
     return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
 }
 
-function base64url_decode($data)
+function base64url_decode($data): string
 {
     return base64_decode(strtr($data, '-_', '+/'));
 }

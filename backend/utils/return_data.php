@@ -1,6 +1,7 @@
 <?php
-function errorMsg($message = "Es ist ein Fehler aufgetreten")
+function errorMsg($message = "Es ist ein Fehler aufgetreten", $httpErrorCode = 400)
 {
+    http_response_code($httpErrorCode);
     return json_encode([
         "status" => "error",
         "error" => true,
