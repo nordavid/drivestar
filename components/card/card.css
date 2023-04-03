@@ -1,0 +1,61 @@
+.license-container {
+    border-radius: 24px;
+    background: var(--primary);
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.license-container #license-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+
+.license-container #license-logo {
+    display: flex;
+    align-items: center;
+}
+
+.license-container #license-logo img {
+    width: 19px;
+}
+
+.license-container #license-logo p {
+    margin-left: 8px;
+    font-family: "Outfit", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.license-container #license-header > p {
+    text-transform: uppercase;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.license-container #license-number {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+
+.license-container #license-number p {
+    font-family: "Roboto Mono", monospace;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.license-container #license-footer {
+    margin-top: 8px;
+    background-color: var(--black);
+    color: var(--white);
+    font-family: "Roboto Mono", monospace;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 16px 24px;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+}
