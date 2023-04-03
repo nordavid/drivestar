@@ -54,11 +54,14 @@ registerForm.addEventListener("submit", async (e) => {
     console.log(formData);
 
     const response = await postRequest("account/register", formData);
+    const data = await response.json();
     if (response.ok) {
-        const data = await response.json();
         if (!data.error) {
             console.log(data);
             localStorage.setItem("jwtToken", data.payload);
+            window.location.href = "./dashboard";
         }
+    } else {
+        console.log(data.message);
     }
 });

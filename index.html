@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="./css/general/colors.css" />
         <link rel="stylesheet" href="./css/general/fonts.css" />
         <link rel="stylesheet" href="./css/pages/index.css" />
+        <script src="./js/authChecker.js"></script>
     </head>
     <body>
         <header>
@@ -106,5 +107,10 @@
             </div>
         </main>
         <footer><p>2023 &#124; David Einenkel</p></footer>
+        <script>
+            checkAuthentication()
+                .then((json) => console.log(json))
+                .catch((error) => console.log(error));
+        </script>
     </body>
 </html>

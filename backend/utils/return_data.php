@@ -9,8 +9,9 @@ function errorMsg($message = "Es ist ein Fehler aufgetreten", $httpErrorCode = 4
     ]);
 }
 
-function successMsg($message)
+function successMsg($message, $httpStatus = 200)
 {
+    http_response_code($httpStatus);
     return json_encode([
         "status" => "success",
         "error" => false,
@@ -18,8 +19,9 @@ function successMsg($message)
     ]);
 }
 
-function returnData($data)
+function returnData($data, $httpStatus = 200)
 {
+    http_response_code($httpStatus);
     return json_encode([
         "status" => "success",
         "error" => false,

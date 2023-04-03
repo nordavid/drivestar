@@ -1,16 +1,16 @@
 <?php
 require_once("./utils/jwt_util.php");
 
-function loginHandler($username, $password)
+function loginHandler($email, $password)
 {
     global $conn;
 
     try {
-        $stmt = $conn->prepare('SELECT id, username, password, is_admin FROM user WHERE username = :username');
-        $stmt->bindParam(":username", $username, PDO::PARAM_STR);
+        $stmt = $conn->prepare('SELECT id, username, password, is_admin FROM user WHERE email = :email');
+        $stmt->bindParam(":email", $email, PDO::PARAM_STR);
         $stmt->execute();
         if ($stmt->rowCount() == 0) {
-            throw new PDOException("Username oder Passwort falsch");
+            throw new PDOException("E-Mail Adresse oder Passwort falsch");
         }
     } catch (PDOException $e) {
         die(errorMsg($e->getMessage()));
@@ -23,9 +23,9 @@ function loginHandler($username, $password)
                 try {
                     $newPasswordHash = password_hash($password, PASSWORD_DEFAULT);
 
-                    $query = $conn->prepare('UPDATE player SET password = :newHash WHERE username = :username;');
+                    $query = $conn->prepare('UPDATE player SET password = :newHash WHERE email = :email;');
                     $query->bindParam(":newHash", $newPasswordHash, PDO::PARAM_STR);
-                    $query->bindParam(":username", $username, PDO::PARAM_STR);
+                    $query->bindParam(":email", $email, PDO::PARAM_STR);
 
                     $query->execute();
                 } catch (PDOException $e) {

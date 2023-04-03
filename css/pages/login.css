@@ -1,0 +1,170 @@
+header {
+    background-color: var(--black);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 96px;
+}
+
+nav {
+    width: 1120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header #logo {
+    display: flex;
+    align-items: center;
+}
+
+header h2 {
+    color: var(--white);
+    margin-left: 12px;
+    font-family: "Outfit", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+header #menu > :first-child {
+    color: var(--white);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+header #menu > :last-child {
+    color: var(--black);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: var(--primary);
+    padding: 16px 24px;
+    margin-left: 40px;
+    border-radius: 80px;
+}
+
+main {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    width: 448px;
+    display: flex;
+    flex-direction: column;
+}
+
+form h1 {
+    font-family: "Outfit", sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+}
+
+form h5 {
+    margin-top: 18px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+form label:first-of-type {
+    margin-top: 48px;
+}
+
+form label:not(:first-of-type) {
+    margin-top: 24px;
+}
+
+form label {
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: 4px;
+}
+
+form input {
+    margin-top: 8px;
+    border: none;
+    background-color: var(--light-grey);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+form input:focus {
+    outline: 1px solid var(--secondary);
+}
+
+form input::placeholder {
+    font-weight: 400;
+    color: var(--grey);
+}
+
+form input[type="file"] {
+    display: none;
+}
+
+form #upload-button {
+    margin-top: 8px;
+    background-color: var(--light-grey);
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+form #upload-button:hover {
+    opacity: 0.7;
+}
+
+form #upload-button:active {
+    background-color: var(--grey);
+}
+
+form button {
+    margin-top: 40px;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+
+    padding: 18px 32px;
+    text-align: center;
+    border-radius: 240px;
+    color: var(--white);
+    font-size: 20px;
+    font-weight: 700;
+    background: rgb(49, 203, 83);
+    background: linear-gradient(-45deg, rgb(49, 203, 83) 0%, rgb(82, 233, 116) 100%);
+    transition: all 0.2s ease-in-out;
+}
+
+form button:hover {
+    transform: scale(1.05);
+}
+
+form #login-link {
+    margin-top: 24px;
+    text-align: center;
+}
+
+form #login-link a {
+    font-weight: 700;
+    position: relative;
+}
+
+form #login-link a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--black);
+}
