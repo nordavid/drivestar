@@ -26,7 +26,13 @@ $endpoints = [
         'handler' => 'loginHandler',
         'method' => HttpRequestMethods::POST,
         'access' => AccessTypes::PUBLIC,
-        'params' => ['username', 'password']
+        'params' => ['email', 'password']
+    ],
+    'account/validate' => [
+        'handler' => 'validateJwtHandler',
+        'method' => HttpRequestMethods::GET,
+        'access' => AccessTypes::PUBLIC,
+        'params' => []
     ],
     'account/user' => [
         'handler' => 'getUserHandler',
