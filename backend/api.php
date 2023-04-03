@@ -1,96 +1,66 @@
 <?php
 require_once('./init.php');
+require_once('./api_types.php');
+require_once("./utils/jwt_util.php");
+
 header('Content-Type: application/json; charset=utf-8');
 
-enum AccessTypes
-{
-    case AUTHORIZATION;
-    case PUBLIC;
-}
-
-enum HttpRequestMethods
-{
-    case GET;
-    case POST;
-    case PUT;
-    case UPDDATE;
-    case DELETE;
-}
-
-$endpoints = [
-    'account/register' => [
-        'handler' => 'registerHandler',
-        'method' => HttpRequestMethods::POST,
-        'access' => AccessTypes::PUBLIC,
-        'params' => ['username', 'email', 'password']
-    ],
-    'account/login' => [
-        'handler' => 'loginHandler',
-        'method' => HttpRequestMethods::POST,
-        'access' => AccessTypes::PUBLIC,
-        'params' => ['username', 'password']
-    ],
-    'account/user' => [
-        'handler' => 'getUserHandler',
-        'method' => HttpRequestMethods::GET,
-        'access' => AccessTypes::AUTHORIZATION,
-        'params' => ['id']
-    ],
-];
-
 if (isset($_SERVER['PATH_INFO'])) {
-    $endpoint = ltrim($_SERVER['PATH_INFO'], "/");
+    $requestedEndpoint = ltrim($_SERVER['PATH_INFO'], "/");
 } else {
     http_response_code(404);
     die(errorMsg("Endpoint nicht gefunden [PI]"));
 }
 
-if (array_key_exists($endpoint, $endpoints)) {
-    $access = $endpoints[$endpoint]['access'];
-    $handler = $endpoints[$endpoint]['handler'];
-    $method = $endpoints[$endpoint]['method'];
-    $params = $endpoints[$endpoint]['params'];
-
-    if (get_server_request_method() === $method) {
-
-        if ($access !== AccessTypes::PUBLIC) {
-            require_once("./utils/jwt_util.php");
-            $bearerToken = get_bearer_token();
-
-            if (!$bearerToken)
-                die(errorMsg("Nicht authorisiert"));
+if (!array_key_exists($requestedEndpoint, $endpoints)) {
+    die(errorMsg("Endpoint nicht gefunden [$requestedEndpoint]", 404));
+}
 
 
-            if (!validate_token($bearerToken))
-                die(errorMsg("Nicht authorisiert"));
-        }
+$access = $endpoints[$requestedEndpoint]['access'];
+$handler = $endpoints[$requestedEndpoint]['handler'];
+$method = $endpoints[$requestedEndpoint]['method'];
+$params = $endpoints[$requestedEndpoint]['params'];
 
-        $requestParams = ($method === HttpRequestMethods::POST) ? $_POST : $_GET;
-        $args = [];
+if (get_server_request_method() !== $method) {
+    die(errorMsg("Request-Methode nicht erlaubt", 405));
+}
 
-        foreach ($params as $param) {
-            if (isset($requestParams[$param])) {
-                $args[] = $requestParams[$param];
-            } else {
-                // parameter missing = bad request
-                http_response_code(400);
-                die(errorMsg("Notweniger Parameter fehlt: " . $param));
-            }
-        }
+if ($access !== AccessTypes::PUBLIC) {
+    check_authentication();
+}
 
-        require_once("./endpoints/$endpoint.php");
+$requestParams = ($method === HttpRequestMethods::POST) ? $_POST : $_GET;
+$args = [];
 
-        if (function_exists($handler))
-            call_user_func_array($handler, $args);
-        else
-            die(errorMsg());
+foreach ($params as $param) {
+    if (isset($requestParams[$param])) {
+        $args[] = $requestParams[$param];
     } else {
-        http_response_code(405);
-        echo errorMsg("Request-Methode nicht erlaubt");
+        // parameter missing = bad request
+        die(errorMsg("Notweniger Parameter fehlt: " . $param, 400));
     }
-} else {
-    http_response_code(404);
-    echo errorMsg("Endpoint nicht gefunden [$endpoint]");
+}
+
+require_once("./endpoints/$requestedEndpoint.php");
+
+if (!function_exists($handler)) {
+    die(errorMsg());
+}
+
+call_user_func_array($handler, $args);
+
+// Check if submitted token exists and is valid
+function check_authentication()
+{
+    $bearerToken = get_bearer_token();
+
+    if (!$bearerToken)
+        die(errorMsg("Nicht authorisiert", 401));
+
+
+    if (!validate_token($bearerToken))
+        die(errorMsg("Nicht authorisiert", 401));
 }
 
 function get_server_request_method(): HttpRequestMethods

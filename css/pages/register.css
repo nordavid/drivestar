@@ -42,7 +42,7 @@ header #menu > :last-child {
     background-color: var(--primary);
     padding: 16px 24px;
     margin-left: 40px;
-    border-radius: 12px;
+    border-radius: 80px;
 }
 
 main {
@@ -146,6 +146,11 @@ form button {
     font-weight: 700;
     background: rgb(49, 203, 83);
     background: linear-gradient(-45deg, rgb(49, 203, 83) 0%, rgb(82, 233, 116) 100%);
+    transition: all 0.2s ease-in-out;
+}
+
+form button:hover {
+    transform: scale(1.05);
 }
 
 form #login-link {
