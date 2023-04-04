@@ -59,9 +59,18 @@ registerForm.addEventListener("submit", async (e) => {
         if (!data.error) {
             console.log(data);
             localStorage.setItem("jwtToken", data.payload);
-            window.location.href = "./dashboard";
+            window.location.href = "./dashboard.html";
         }
     } else {
         console.log(data.message);
     }
 });
+
+async function redirectIfAuthenticated() {
+    const isAuthenticated = await isLoggedIn();
+    if (isAuthenticated) {
+        window.location.href = "./dashboard.html";
+    }
+}
+
+redirectIfAuthenticated();
