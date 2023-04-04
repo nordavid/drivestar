@@ -1,0 +1,114 @@
+body {
+    display: flex;
+    background-color: var(--light-grey);
+}
+
+aside {
+    width: 280px;
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+aside #logo {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+
+aside #logo h2 {
+    margin-left: 12px;
+    font-family: "Outfit", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+aside nav {
+    align-self: stretch;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 80px;
+    margin-bottom: 24px;
+}
+
+aside nav .nav-element {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+aside nav .nav-element .nav-button {
+    display: flex;
+    align-items: center;
+    padding: 16px 40px;
+    margin: 12px 20px;
+    border-radius: 12px;
+    flex: auto;
+    transition: all 0.1s;
+    cursor: pointer;
+}
+
+aside nav .nav-element.active .nav-button {
+    background-color: rgb(245, 208, 25);
+}
+
+aside nav .nav-element .nav-button:hover {
+    background-color: rgb(245, 208, 25);
+}
+
+aside nav .nav-element .nav-button:active {
+    background-color: rgb(238, 200, 9);
+}
+
+aside nav .nav-element.active .active-indicator {
+    background-color: var(--black);
+    width: 5px;
+    height: 26px;
+    position: absolute;
+    left: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+aside nav .nav-element .nav-button p {
+    margin-left: 16px;
+}
+
+header {
+    background-color: var(--white);
+    flex: auto;
+    align-self: flex-start;
+    border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+header #profile-info {
+    display: flex;
+    align-items: center;
+    padding: 18px 64px;
+}
+
+header #profile-info img {
+    border-radius: 100%;
+}
+
+header #profile-info #profile-name {
+    margin-left: 16px;
+}
+
+header #profile-info #profile-name p:first-child {
+    color: var(--grey);
+    font-size: 14px;
+}
+
+header #profile-info #profile-name p:last-child {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+main {
+    background-color: aqua;
+}
