@@ -28,7 +28,7 @@ $endpoints = [
         'access' => AccessTypes::PUBLIC,
         'params' => ['email', 'password']
     ],
-    'account/validate' => [
+    'account/validatetoken' => [
         'handler' => 'validateJwtHandler',
         'method' => HttpRequestMethods::GET,
         'access' => AccessTypes::PUBLIC,

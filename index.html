@@ -19,8 +19,8 @@
                     <h2>Drivestar</h2>
                 </div>
                 <div id="menu">
-                    <a href="./login.html">Login</a>
-                    <a href="./register.html">Registrieren</a>
+                    <a href="#" onclick="navigateTo('login')">Login</a>
+                    <a href="#" onclick="navigateTo('register')">Registrieren</a>
                 </div>
             </nav>
         </header>
@@ -35,7 +35,7 @@
                 vor. Eine von Experten entwickelte Erfolgskontrolle hilft Dir Deinen
                 personalisierten Fragekatalog effizient und sicher zu lernen.
             </p>
-            <a id="btn-start-learning" href=""
+            <a id="btn-start-learning" href="#" onclick="navigateTo('login')"
                 >Lerne jetzt los
                 <div><img src="./img/icons/fill/teacher.svg" /></div
             ></a>
@@ -108,9 +108,14 @@
         </main>
         <footer><p>2023 &#124; David Einenkel</p></footer>
         <script>
-            checkAuthentication()
-                .then((json) => console.log(json))
-                .catch((error) => console.log(error));
+            async function navigateTo(page) {
+                const isAuthenticated = await isLoggedIn();
+                if (isAuthenticated) {
+                    window.location.href = "./dashboard.html";
+                } else {
+                    window.location.href = `./${page}.html`;
+                }
+            }
         </script>
     </body>
 </html>
