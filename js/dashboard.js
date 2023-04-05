@@ -16,24 +16,15 @@ const navEl = document.querySelectorAll(".nav-element");
 const dashboardSections = document.querySelectorAll(".dashboard-section");
 
 function activeLink() {
-    dashboardSections.forEach((item) => item.classList.add("hidden"));
+    dashboardSections.forEach((item) => item.classList.remove("active"));
     const section = this.id.split("-")[2];
     const dashboardSection = document.querySelector(`section#${section}`);
-    dashboardSection.classList.remove("hidden");
+    dashboardSection.classList.add("active");
 
     navEl.forEach((item) => item.classList.remove("active"));
     this.classList.add("active");
 }
 navEl.forEach((item) => item.addEventListener("click", activeLink));
-
-// Main category select
-const categorySelect = document.querySelectorAll(".cat-button");
-
-function activeCategory() {
-    categorySelect.forEach((item) => item.classList.remove("active"));
-    this.classList.add("active");
-}
-categorySelect.forEach((item) => item.addEventListener("click", activeCategory));
 
 // Functions
 function logout() {
