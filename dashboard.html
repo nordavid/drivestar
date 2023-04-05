@@ -24,28 +24,28 @@
                     <div class="nav-element active">
                         <div class="nav-button">
                             <img src="./img/icons/line/dashboard.svg" alt="Dashboard Icon" />
-                            <p>Dashboard</p>
+                            <h3>Dashboard</h3>
                         </div>
                         <div class="active-indicator"></div>
                     </div>
                     <div class="nav-element">
                         <div class="nav-button">
                             <img src="./img/icons/line/question.svg" alt="Fragen Icon" />
-                            <p>Fragen</p>
+                            <h3>Fragen</h3>
                         </div>
                         <div class="active-indicator"></div>
                     </div>
                     <div class="nav-element">
                         <div class="nav-button">
                             <img src="./img/icons/line/teacher.svg" alt="Training Icon" />
-                            <p>Training</p>
+                            <h3>Training</h3>
                         </div>
                         <div class="active-indicator"></div>
                     </div>
                     <div class="nav-element">
                         <div class="nav-button">
                             <img src="./img/icons/line/car.svg" alt="Prüfung Icon" />
-                            <p>Prüfung</p>
+                            <h3>Prüfung</h3>
                         </div>
                         <div class="active-indicator"></div>
                     </div>
@@ -54,29 +54,134 @@
                     <div class="nav-element">
                         <div class="nav-button">
                             <img src="./img/icons/line/settings.svg" alt="Einstellungen Icon" />
-                            <p>Einstellungen</p>
+                            <h3>Einstellungen</h3>
                         </div>
                         <div class="active-indicator"></div>
                     </div>
                     <div class="nav-element">
                         <div class="nav-button" onclick="logout()">
                             <img src="./img/icons/line/logout.svg" alt="Logout Icon" />
-                            <p>Abmelden</p>
+                            <h3>Abmelden</h3>
                         </div>
                         <div class="active-indicator"></div>
                     </div>
                 </div>
             </nav>
         </aside>
-        <header>
-            <div id="profile-info">
-                <img src="./img/license_image_placeholder.svg" alt="Profile Picture" />
-                <div id="profile-name">
-                    <p>Willkommen zurück</p>
-                    <p>Linda Sternschnuppe</p>
+        <main>
+            <header>
+                <div id="profile-info">
+                    <img src="./img/license_image_placeholder.svg" alt="Profilbild" />
+                    <div id="profile-name">
+                        <p>Willkommen zurück</p>
+                        <p>Linda Sternschnuppe</p>
+                    </div>
                 </div>
-            </div>
-        </header>
-        <main></main>
+            </header>
+            <section class="">
+                <div id="total-progress" class="div1 widget">
+                    <div class="header">
+                        <h1>Gesamtfortschritt</h1>
+                        <img src="./img/icons/line/progress.svg" alt="Fortschritt Icon" />
+                    </div>
+                    <h2>30%</h2>
+                    <div class="progress"><div class="bar"></div></div>
+                    <p><span id="correct-answers">214</span> Fragen richtig beantwortet</p>
+                    <p><span id="remaining-questions">830</span> noch zu beantworten</p>
+                </div>
+                <div id="badges" class="div2 widget">
+                    <div class="header">
+                        <img src="./img/icons/line/badge.svg" alt="Abzeichen Icon" />
+                        <h1>Abzeichen</h1>
+                    </div>
+                    <div id="user-badges">
+                        <div class="badge">
+                            <img src="./img/badges/badge_five_day_streak.svg" alt="Abzeichen" />
+                            <h3>5-Tages Streak</h3>
+                        </div>
+                        <div class="badge">
+                            <img src="./img/badges/badge_ten_day_streak.svg" alt="Abzeichen" />
+                            <h3>10-Tages Streak</h3>
+                        </div>
+                        <div class="badge">
+                            <img src="./img/badges/badge_furious_fast.svg" alt="Abzeichen" />
+                            <h3>50% in 7 Tagen</h3>
+                        </div>
+                        <div class="badge">
+                            <img src="./img/badges/badge_complete.svg" alt="Abzeichen" />
+                            <h3>100%</h3>
+                        </div>
+                    </div>
+                </div>
+                <div id="completed-trainings" class="div3 widget">
+                    <div class="header">
+                        <img src="./img/icons/line/teacher.svg" alt="Trainings Icon" />
+                        <h1>Absolvierte Trainings</h1>
+                    </div>
+                    <div id="training-table-header">
+                        <h2>Datum</h2>
+                        <h2>Richtig beantwortet</h2>
+                        <h2>Benötigte Zeit</h2>
+                    </div>
+                    <div id="training-table-container">
+                        <div class="training">
+                            <p>00.00.0000</p>
+                            <p>0 von 0 Fragen</p>
+                            <p>0 Minuten</p>
+                        </div>
+                        <div class="training">
+                            <p>00.00.0000</p>
+                            <p>0 von 110 Fragen</p>
+                            <p>0 Minuten</p>
+                        </div>
+                        <div class="training perfect">
+                            <p>00.00.0000</p>
+                            <p>0 von 0 Fragen</p>
+                            <p>0 Minuten</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="category-stats" class="div4 widget">
+                    <div class="header">
+                        <h1>Kategorien</h1>
+                        <img src="./img/icons/line/categories.svg" alt="Kategorien Icon" />
+                    </div>
+                    <div id="category-progress-container">
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </body>
 </html>
