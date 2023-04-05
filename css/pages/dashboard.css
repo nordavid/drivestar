@@ -146,9 +146,12 @@ main {
     overflow: auto;
 }
 
+main section.dashboard-section {
+    display: none;
+}
+
 /* Home */
-main section#dashboard {
-    background-color: var(--light-grey);
+main section#dashboard.active {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: minmax(min-content, max-content);
@@ -354,11 +357,9 @@ main section#dashboard {
 }
 
 /* Questions */
-main section#questions {
-    background-color: var(--light-grey);
+main section#questions.active {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* grid-auto-rows: minmax(min-content, max-content); */
     grid-template-rows: auto 1fr;
     grid-template-areas:
         "cat cat cat"
@@ -445,6 +446,7 @@ main section#questions #subcategory-select .subcategory {
     background-color: var(--white);
     border-radius: 14px;
     padding: 16px 24px;
+    cursor: pointer;
 }
 
 main section#questions #subcategory-select .subcategory:not(:first-of-type) {
@@ -563,3 +565,190 @@ main section#questions #question-container .question .question-image img {
 }
 
 /* Training */
+main section#training.active {
+    display: grid;
+    grid-template-columns: 328px 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "head head head"
+        "settings subcat subcat";
+    grid-column-gap: 24px;
+    grid-row-gap: 24px;
+    padding: 40px 64px;
+}
+
+main section#training h2 {
+    grid-area: head;
+}
+
+main section#training .training-settings {
+    grid-area: settings;
+    background-color: var(--white);
+    border-radius: 24px;
+}
+
+main section#training .training-settings h2 {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+main section#training .training-settings > h2 {
+    padding: 24px 24px 0 24px;
+}
+
+main section#training .training-settings .maincat-select-container {
+    margin-top: 16px;
+    padding: 0 24px;
+}
+
+main section#training .training-settings .maincat-select-container .maincat-item {
+    background-color: var(--light-grey);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+main section#training .training-settings .maincat-select-container .maincat-item.active {
+    outline: 1px solid var(--secondary);
+}
+
+main
+    section#training
+    .training-settings
+    .maincat-select-container
+    .maincat-item:not(:first-of-type) {
+    margin-top: 8px;
+}
+
+main section#training .training-settings .maincat-select-container .maincat-item .radio-indicator {
+    width: 20px;
+    height: 20px;
+    background-color: var(--white);
+    border: 1px solid var(--grey);
+    border-radius: 100%;
+    margin-right: 16px;
+}
+
+main
+    section#training
+    .training-settings
+    .maincat-select-container
+    .maincat-item.active
+    .radio-indicator {
+    width: 20px;
+    height: 20px;
+    background-color: var(--white);
+    border: 5px solid var(--secondary);
+    border-radius: 100%;
+    margin-right: 16px;
+}
+
+main section#training .training-settings .maincat-select-container .maincat-item h3 {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+main section#training .training-settings .divider {
+    height: 1px;
+    background-color: var(--light-grey);
+    margin: 24px 0;
+}
+
+main section#training .training-settings .question-count-container {
+    padding: 0 24px;
+}
+
+/* Slider style */
+
+main section#training .training-settings .question-count-container input {
+    margin-top: 16px;
+    width: 100%;
+    -webkit-appearance: none;
+}
+
+main section#training .training-settings .question-count-container input:focus {
+    outline: none;
+}
+
+main
+    section#training
+    .training-settings
+    .question-count-container
+    input::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 1px;
+    cursor: pointer;
+    box-shadow: none;
+    background: #ffffff;
+    border-radius: 0px;
+    border: 0px solid #010101;
+}
+
+main section#training .training-settings .question-count-container input::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    /* box-shadow: none; */
+    background: var(--secondary);
+    border-radius: 10px;
+    border: 0px solid #010101;
+}
+
+main section#training .training-settings .question-count-container input::-webkit-slider-thumb {
+    box-shadow: none;
+    border: 0px solid #ffffff;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+    height: 42px;
+    width: 22px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -20px;
+}
+
+main section#training .training-settings .question-count-container input::-moz-range-thumb {
+    box-shadow: none;
+    border: 6px solid var(--black);
+    height: 10px;
+    width: 10px;
+    border-radius: 22px;
+    background: var(--white);
+    cursor: pointer;
+}
+
+main section#training .training-settings .question-count-container input::-moz-focus-outer {
+    border: 0;
+}
+
+/* Start Training Button */
+main section#training .training-settings .start-training-button {
+    margin: 0 24px 24px 24px;
+    padding: 8px 10px 8px 10px;
+    border-radius: 240px;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    font-size: 20px;
+    font-weight: 700;
+    background: rgb(49, 203, 83);
+    background: linear-gradient(-45deg, rgb(49, 203, 83) 0%, rgb(82, 233, 116) 100%);
+}
+
+main section#training .training-settings .start-training-button > :first-child {
+    background-color: var(--white);
+    padding: 10px;
+    border-radius: 100%;
+    margin-right: 30px;
+}
+
+main section#training .subcats-training {
+    grid-area: subcat;
+    background-color: var(--white);
+    border-radius: 24px;
+    padding: 24px;
+}

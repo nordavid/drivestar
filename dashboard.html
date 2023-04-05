@@ -13,6 +13,8 @@
         <script src="./js/authChecker.js"></script>
         <script src="./js/utils.js"></script>
         <script defer src="./js/dashboard.js"></script>
+        <script defer src="./js/dashboardQuestion.js"></script>
+        <script defer src="./js/dashboardTraining.js"></script>
     </head>
     <body>
         <aside>
@@ -36,14 +38,14 @@
                         </div>
                         <div class="active-indicator"></div>
                     </div>
-                    <div class="nav-element">
+                    <div class="nav-element" id="nav-element-training">
                         <div class="nav-button">
                             <img src="./img/icons/line/teacher.svg" alt="Training Icon" />
                             <h3>Training</h3>
                         </div>
                         <div class="active-indicator"></div>
                     </div>
-                    <div class="nav-element">
+                    <div class="nav-element" id="nav-element-exam">
                         <div class="nav-button">
                             <img src="./img/icons/line/car.svg" alt="Prüfung Icon" />
                             <h3>Prüfung</h3>
@@ -52,14 +54,14 @@
                     </div>
                 </div>
                 <div id="bottom-nav">
-                    <div class="nav-element nav-admin hidden">
+                    <div class="nav-element nav-admin hidden" id="nav-element-admin">
                         <div class="nav-button">
                             <img src="./img/icons/line/admin.svg" alt="Admin Icon" />
                             <h3>Admin</h3>
                         </div>
                         <div class="active-indicator"></div>
                     </div>
-                    <div class="nav-element">
+                    <div class="nav-element" id="nav-element-settings">
                         <div class="nav-button">
                             <img src="./img/icons/line/settings.svg" alt="Einstellungen Icon" />
                             <h3>Einstellungen</h3>
@@ -88,7 +90,7 @@
         </header>
 
         <main>
-            <section class="dashboard-section hidden" id="dashboard">
+            <section class="dashboard-section active" id="dashboard">
                 <div id="total-progress" class="w1 widget">
                     <div class="header">
                         <h1>Gesamtfortschritt</h1>
@@ -255,7 +257,7 @@
                                 </div>
                             </div>
                             <div class="question-image">
-                                <img src="./uploads/profilepictures/profilepicture_3.jpg" />
+                                <img src="./uploads/questionimgs/2.2.37-006.jpg" />
                             </div>
                         </div>
                         <div class="question saved">
@@ -275,14 +277,116 @@
                                 </div>
                             </div>
                             <div class="question-image">
-                                <img src="./uploads/profilepictures/profilepicture_3.jpg" />
+                                <img src="./uploads/questionimgs/2.2.37-006.jpg" />
+                            </div>
+                        </div>
+                        <div class="question">
+                            <div class="question-info">
+                                <div class="header">
+                                    <h1 class="question-identifier">Theorie Frage: 2.2.03-005</h1>
+                                    <div class="divider"></div>
+                                    <h2 class="qustion-points">Fehlerpunkte: 2</h2>
+                                </div>
+                                <p>
+                                    Wie lautet die Faustformel, um den Bremsweg einer Gefahrbremsung
+                                    auf ebener, trockener und asphaltierter Fahrbahn auszurechnen?
+                                </p>
+                                <div class="save-question-button">
+                                    <img src="./img/icons/line/save.svg" alt="Gespeichert Icon" />
+                                    <h3>Frage markieren</h3>
+                                </div>
+                            </div>
+                            <div class="question-image">
+                                <img src="./uploads/questionimgs/2.2.37-006.jpg" />
+                            </div>
+                        </div>
+                        <div class="question">
+                            <div class="question-info">
+                                <div class="header">
+                                    <h1 class="question-identifier">Theorie Frage: 2.2.03-005</h1>
+                                    <div class="divider"></div>
+                                    <h2 class="qustion-points">Fehlerpunkte: 2</h2>
+                                </div>
+                                <p>
+                                    Wie lautet die Faustformel, um den Bremsweg einer Gefahrbremsung
+                                    auf ebener, trockener und asphaltierter Fahrbahn auszurechnen?
+                                </p>
+                                <div class="save-question-button">
+                                    <img src="./img/icons/line/save.svg" alt="Gespeichert Icon" />
+                                    <h3>Frage markieren</h3>
+                                </div>
+                            </div>
+                            <div class="question-image">
+                                <img src="./uploads/questionimgs/2.2.37-006.jpg" />
+                            </div>
+                        </div>
+                        <div class="question">
+                            <div class="question-info">
+                                <div class="header">
+                                    <h1 class="question-identifier">Theorie Frage: 2.2.03-005</h1>
+                                    <div class="divider"></div>
+                                    <h2 class="qustion-points">Fehlerpunkte: 2</h2>
+                                </div>
+                                <p>
+                                    Wie lautet die Faustformel, um den Bremsweg einer Gefahrbremsung
+                                    auf ebener, trockener und asphaltierter Fahrbahn auszurechnen?
+                                </p>
+                                <div class="save-question-button">
+                                    <img src="./img/icons/line/save.svg" alt="Gespeichert Icon" />
+                                    <h3>Frage markieren</h3>
+                                </div>
+                            </div>
+                            <div class="question-image">
+                                <img src="./uploads/questionimgs/2.2.37-006.jpg" />
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="dashboard-section" id="training"></section>
+            <section class="dashboard-section" id="training">
+                <h1>Einstellungen für Training</h1>
+                <div class="training-settings">
+                    <h2>Hauptkategorie wählen</h2>
+                    <div class="maincat-select-container">
+                        <div class="maincat-item">
+                            <div class="radio-indicator"></div>
+                            <h3>Alle Fragen</h3>
+                        </div>
+                        <div class="maincat-item active">
+                            <div class="radio-indicator"></div>
+                            <h3>Alle Fragen</h3>
+                        </div>
+                        <div class="maincat-item">
+                            <div class="radio-indicator"></div>
+                            <h3>Alle Fragen</h3>
+                        </div>
+                        <div class="maincat-item">
+                            <div class="radio-indicator"></div>
+                            <h3>Alle Fragen</h3>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="question-count-container">
+                        <h2>Anzahl Fragen</h2>
+                        <input type="range" min="5" max="50" step="5" value="20" />
+                    </div>
+                    <div class="divider"></div>
+                    <div class="time-limit-container">
+                        <h2>Zeitbegrenzung festlegen</h2>
+                        <input type="range" min="1" max="45" value="10" />
+                    </div>
+                    <div class="divider"></div>
+                    <div class="start-training-button">
+                        <div><img src="./img/icons/line/start.svg" alt="Start Icon" /></div>
+                        Training starten
+                    </div>
+                </div>
+                <div class="subcats-training"></div>
+            </section>
+            <section class="dashboard-section" id="exam"></section>
+            <section class="dashboard-section" id="admin"></section>
+            <section class="dashboard-section" id="settings"></section>
         </main>
     </body>
 </html>
