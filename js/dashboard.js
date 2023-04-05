@@ -7,8 +7,11 @@ async function redirectIfNotAuthenticated() {
 
 redirectIfNotAuthenticated();
 
-const navEl = document.querySelectorAll(".nav-element");
+if (isAdmin()) {
+    document.querySelector(".nav-admin").classList.remove("hidden");
+}
 
+const navEl = document.querySelectorAll(".nav-element");
 function activeLink() {
     navEl.forEach((item) => item.classList.remove("active"));
     this.classList.add("active");

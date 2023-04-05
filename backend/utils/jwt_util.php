@@ -23,6 +23,11 @@ function create_token(array $userObj, int $expiresIn = 604800): string
 function validate_token(string $jwt)
 {
     $parts = explode(".", $jwt);
+
+    if (empty($parts[0]) || empty($parts[1]) || empty($parts[2])) {
+        return false;
+    }
+
     $header = $parts[0];
     $payload = $parts[1];
     $signature = $parts[2];

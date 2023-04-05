@@ -8,7 +8,6 @@ registerForm.addEventListener("submit", async (e) => {
     const data = await response.json();
     if (response.ok) {
         if (!data.error) {
-            console.log(data);
             localStorage.setItem("jwtToken", data.payload);
             window.location.href = "./dashboard.html";
         }

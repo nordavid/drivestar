@@ -31,7 +31,7 @@ $endpoints = [
     'account/validatetoken' => [
         'handler' => 'validateJwtHandler',
         'method' => HttpRequestMethods::GET,
-        'access' => AccessTypes::PUBLIC,
+        'access' => AccessTypes::AUTHORIZATION,
         'params' => []
     ],
     'account/user' => [

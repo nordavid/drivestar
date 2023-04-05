@@ -34,7 +34,7 @@ function loginHandler($email, $password)
             }
 
             // logged in
-            $userObj = ["user_id" => $result['id'], "username" => $result['username'], "is_admin" => $result['is_admin']];
+            $userObj = ["userId" => $result['id'], "username" => $result['username'], "isAdmin" => $result['is_admin']];
             exit(returnData(create_token($userObj)));
         } else {
             die(errorMsg("Username oder Passwort falsch"));
