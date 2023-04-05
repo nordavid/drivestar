@@ -22,14 +22,14 @@
             </a>
             <nav>
                 <div id="top-nav">
-                    <div class="nav-element active">
+                    <div class="nav-element active" id="nav-element-dashboard">
                         <div class="nav-button">
                             <img src="./img/icons/line/dashboard.svg" alt="Dashboard Icon" />
                             <h3>Dashboard</h3>
                         </div>
                         <div class="active-indicator"></div>
                     </div>
-                    <div class="nav-element">
+                    <div class="nav-element" id="nav-element-questions">
                         <div class="nav-button">
                             <img src="./img/icons/line/question.svg" alt="Fragen Icon" />
                             <h3>Fragen</h3>
@@ -86,109 +86,203 @@
                 </div>
             </div>
         </header>
+
         <main>
-            <div id="total-progress" class="div1 widget">
-                <div class="header">
-                    <h1>Gesamtfortschritt</h1>
-                    <img src="./img/icons/line/progress.svg" alt="Fortschritt Icon" />
+            <section class="dashboard-section hidden" id="dashboard">
+                <div id="total-progress" class="w1 widget">
+                    <div class="header">
+                        <h1>Gesamtfortschritt</h1>
+                        <img src="./img/icons/line/progress.svg" alt="Fortschritt Icon" />
+                    </div>
+                    <h2>30%</h2>
+                    <div class="progress"><div class="bar"></div></div>
+                    <p><span id="correct-answers">214</span> Fragen richtig beantwortet</p>
+                    <p><span id="remaining-questions">830</span> noch zu beantworten</p>
                 </div>
-                <h2>30%</h2>
-                <div class="progress"><div class="bar"></div></div>
-                <p><span id="correct-answers">214</span> Fragen richtig beantwortet</p>
-                <p><span id="remaining-questions">830</span> noch zu beantworten</p>
-            </div>
-            <div id="badges" class="div2 widget">
-                <div class="header">
-                    <img src="./img/icons/line/badge.svg" alt="Abzeichen Icon" />
-                    <h1>Abzeichen</h1>
-                </div>
-                <div id="user-badges">
-                    <div class="badge">
-                        <img src="./img/badges/badge_five_day_streak.svg" alt="Abzeichen" />
-                        <h3>5-Tages Streak</h3>
+                <div id="badges" class="w2 widget">
+                    <div class="header">
+                        <img src="./img/icons/line/badge.svg" alt="Abzeichen Icon" />
+                        <h1>Abzeichen</h1>
                     </div>
-                    <div class="badge">
-                        <img src="./img/badges/badge_ten_day_streak.svg" alt="Abzeichen" />
-                        <h3>10-Tages Streak</h3>
-                    </div>
-                    <div class="badge">
-                        <img src="./img/badges/badge_furious_fast.svg" alt="Abzeichen" />
-                        <h3>50% in 7 Tagen</h3>
-                    </div>
-                    <div class="badge">
-                        <img src="./img/badges/badge_complete.svg" alt="Abzeichen" />
-                        <h3>100%</h3>
-                    </div>
-                </div>
-            </div>
-            <div id="completed-trainings" class="div3 widget">
-                <div class="header">
-                    <img src="./img/icons/line/teacher.svg" alt="Trainings Icon" />
-                    <h1>Absolvierte Trainings</h1>
-                </div>
-                <div id="training-table-header">
-                    <h2>Datum</h2>
-                    <h2>Richtig beantwortet</h2>
-                    <h2>Benötigte Zeit</h2>
-                </div>
-                <div id="training-table-container">
-                    <div class="training">
-                        <p>00.00.0000</p>
-                        <p>0 von 0 Fragen</p>
-                        <p>0 Minuten</p>
-                    </div>
-                    <div class="training">
-                        <p>00.00.0000</p>
-                        <p>0 von 110 Fragen</p>
-                        <p>0 Minuten</p>
-                    </div>
-                    <div class="training perfect">
-                        <p>00.00.0000</p>
-                        <p>0 von 0 Fragen</p>
-                        <p>0 Minuten</p>
+                    <div id="user-badges">
+                        <div class="badge">
+                            <img src="./img/badges/badge_five_day_streak.svg" alt="Abzeichen" />
+                            <h3>5-Tages Streak</h3>
+                        </div>
+                        <div class="badge">
+                            <img src="./img/badges/badge_ten_day_streak.svg" alt="Abzeichen" />
+                            <h3>10-Tages Streak</h3>
+                        </div>
+                        <div class="badge">
+                            <img src="./img/badges/badge_furious_fast.svg" alt="Abzeichen" />
+                            <h3>50% in 7 Tagen</h3>
+                        </div>
+                        <div class="badge">
+                            <img src="./img/badges/badge_complete.svg" alt="Abzeichen" />
+                            <h3>100%</h3>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="category-stats" class="div4 widget">
-                <div class="header">
-                    <h1>Kategorien</h1>
-                    <img src="./img/icons/line/categories.svg" alt="Kategorien Icon" />
-                </div>
-                <div id="category-progress-container">
-                    <div class="category-progress">
-                        <h2>Test Kategorie 123</h2>
-                        <div class="progress"><div class="bar"></div></div>
+                <div id="completed-trainings" class="w3 widget">
+                    <div class="header">
+                        <img src="./img/icons/line/teacher.svg" alt="Trainings Icon" />
+                        <h1>Absolvierte Trainings</h1>
                     </div>
-                    <div class="category-progress">
-                        <h2>Test Kategorie 123</h2>
-                        <div class="progress"><div class="bar"></div></div>
+                    <div id="training-table-header">
+                        <h2>Datum</h2>
+                        <h2>Richtig beantwortet</h2>
+                        <h2>Benötigte Zeit</h2>
                     </div>
-                    <div class="category-progress">
-                        <h2>Test Kategorie 123</h2>
-                        <div class="progress"><div class="bar"></div></div>
-                    </div>
-                    <div class="category-progress">
-                        <h2>Test Kategorie 123</h2>
-                        <div class="progress"><div class="bar"></div></div>
-                    </div>
-                    <div class="category-progress">
-                        <h2>Test Kategorie 123</h2>
-                        <div class="progress"><div class="bar"></div></div>
-                    </div>
-                    <div class="category-progress">
-                        <h2>Test Kategorie 123</h2>
-                        <div class="progress"><div class="bar"></div></div>
-                    </div>
-                    <div class="category-progress">
-                        <h2>Test Kategorie 123</h2>
-                        <div class="progress"><div class="bar"></div></div>
-                    </div>
-                    <div class="category-progress">
-                        <h2>Test Kategorie 123</h2>
-                        <div class="progress"><div class="bar"></div></div>
+                    <div id="training-table-container">
+                        <div class="training">
+                            <p>00.00.0000</p>
+                            <p>0 von 0 Fragen</p>
+                            <p>0 Minuten</p>
+                        </div>
+                        <div class="training">
+                            <p>00.00.0000</p>
+                            <p>0 von 110 Fragen</p>
+                            <p>0 Minuten</p>
+                        </div>
+                        <div class="training perfect">
+                            <p>00.00.0000</p>
+                            <p>0 von 0 Fragen</p>
+                            <p>0 Minuten</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div id="category-stats" class="w4 widget">
+                    <div class="header">
+                        <h1>Kategorien</h1>
+                        <img src="./img/icons/line/categories.svg" alt="Kategorien Icon" />
+                    </div>
+                    <div id="category-progress-container">
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                        <div class="category-progress">
+                            <h2>Test Kategorie 123</h2>
+                            <div class="progress"><div class="bar"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section" id="questions">
+                <div id="category-select">
+                    <div class="cat-button">
+                        <div class="radio-indicator"></div>
+                        <h2>Alle Fragen</h2>
+                    </div>
+                    <div class="cat-button active">
+                        <div class="radio-indicator"></div>
+                        <h2>Grundstoff</h2>
+                    </div>
+                    <div class="cat-button">
+                        <div class="radio-indicator"></div>
+                        <h2>Zusatzfragen</h2>
+                    </div>
+                    <div class="cat-button">
+                        <div class="radio-indicator"></div>
+                        <h2>Markierte Fragen</h2>
+                    </div>
+                </div>
+                <div id="subcategory-select">
+                    <div class="header">
+                        <img src="./img/icons/line/categories.svg" alt="Kategorien Icon" />
+                        <h1>Kategorien</h1>
+                    </div>
+                    <div class="subcategory-container">
+                        <div class="subcategory">
+                            <h3>Kapitel 1.2.02</h3>
+                            <h2>Straßenbenutzung</h2>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Kapitel 1.2.02</h3>
+                            <h2>Straßenbenutzung</h2>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Kapitel 1.2.02</h3>
+                            <h2>Straßenbenutzung</h2>
+                        </div>
+                    </div>
+                </div>
+                <div id="question-container">
+                    <div class="header">
+                        <img src="./img/icons/line/question.svg" alt="Fragen Icon" />
+                        <h1>Fragen</h1>
+                    </div>
+                    <div id="question-list">
+                        <div class="question">
+                            <div class="question-info">
+                                <div class="header">
+                                    <h1 class="question-identifier">Theorie Frage: 2.2.03-005</h1>
+                                    <div class="divider"></div>
+                                    <h2 class="qustion-points">Fehlerpunkte: 2</h2>
+                                </div>
+                                <p>
+                                    Wie lautet die Faustformel, um den Bremsweg einer Gefahrbremsung
+                                    auf ebener, trockener und asphaltierter Fahrbahn auszurechnen?
+                                </p>
+                                <div class="save-question-button">
+                                    <img src="./img/icons/line/save.svg" alt="Gespeichert Icon" />
+                                    <h3>Frage markieren</h3>
+                                </div>
+                            </div>
+                            <div class="question-image">
+                                <img src="./uploads/profilepictures/profilepicture_3.jpg" />
+                            </div>
+                        </div>
+                        <div class="question saved">
+                            <div class="question-info">
+                                <div class="header">
+                                    <h1 class="question-identifier">Theorie Frage: 2.2.03-005</h1>
+                                    <div class="divider"></div>
+                                    <h2 class="qustion-points">Fehlerpunkte: 2</h2>
+                                </div>
+                                <p>
+                                    Wie lautet die Faustformel, um den Bremsweg einer Gefahrbremsung
+                                    auf ebener, trockener und asphaltierter Fahrbahn auszurechnen?
+                                </p>
+                                <div class="save-question-button">
+                                    <img src="./img/icons/line/save.svg" alt="Gespeichert Icon" />
+                                    <h3>Frage markiert</h3>
+                                </div>
+                            </div>
+                            <div class="question-image">
+                                <img src="./uploads/profilepictures/profilepicture_3.jpg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-section" id="training"></section>
         </main>
     </body>
 </html>
