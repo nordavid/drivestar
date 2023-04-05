@@ -110,16 +110,20 @@ main #btn-start-learning > :first-child {
 }
 
 /* Feature-Preview */
-
 main #features {
-    width: 1120px;
+    max-width: 1120px;
     margin-top: 56px;
+    margin-bottom: 56px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
     grid-column-gap: 32px;
-    grid-row-gap: 0px;
-    margin-bottom: 56px;
+    grid-row-gap: 40px;
+}
+
+@media (max-width: 1160px) {
+    main #features {
+        grid-template-columns: 1fr;
+    }
 }
 
 main #features .feature-heading {
