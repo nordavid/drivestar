@@ -1,10 +1,40 @@
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--grey) var(--light-grey);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--light-grey);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--grey);
+    border-radius: 10px;
+    border: none;
+}
+
 body {
-    display: flex;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "side header"
+        "side main";
     background-color: var(--light-grey);
 }
 
 aside {
-    width: 280px;
+    /* grid-column: 1 / 2;
+    grid-row: 1 / 3; */
+    grid-area: side;
+    /* width: 280px; */
     background-color: var(--primary);
     display: flex;
     flex-direction: column;
@@ -80,12 +110,8 @@ aside nav .nav-element .nav-button h3 {
     font-weight: 400;
 }
 
-main {
-    flex: auto;
-    background-color: var(--light-grey);
-}
-
 header {
+    grid-area: header;
     background-color: var(--white);
     border-bottom: 1px solid rgb(228, 228, 228);
 }
@@ -115,14 +141,18 @@ header #profile-info #profile-name p:last-child {
     margin-top: 4px;
 }
 
-main section {
+main {
+    /* flex: auto; */
+    grid-area: main;
+    background-color: var(--light-grey);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     /* grid-template-rows: repeat(2, 1fr); */
     grid-auto-rows: minmax(min-content, max-content);
     grid-column-gap: 24px;
     grid-row-gap: 24px;
-    margin: 40px 64px;
+    padding: 40px 64px;
+    overflow: auto;
 }
 
 .div1 {
@@ -265,6 +295,10 @@ main section {
     background-color: var(--light-grey);
     padding: 20px;
     border-radius: 16px;
+}
+
+.widget#completed-trainings .training.perfect {
+    outline: 1px solid var(--secondary);
 }
 
 .widget#completed-trainings .training:not(:first-child) {

@@ -37,7 +37,7 @@ function registerHandler($username, $email, $password)
 
 
         // Registered successful and logged in
-        $userObj = ["user_id" => $userId, "username" => $username, "is_admin" => false];
+        $userObj = ["userId" => $userId, "username" => $username, "isAdmin" => false];
         exit(returnData(create_token($userObj)));
     } catch (PDOException $e) {
         die(errorMsg("Fehler bei Registrierung. " . $e->getMessage()));

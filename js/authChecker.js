@@ -1,6 +1,7 @@
 async function isLoggedIn() {
     const jwtToken = localStorage.getItem("jwtToken");
-    if (!jwtToken) {
+
+    if (jwtToken == undefined || jwtToken === null) {
         return false;
     } else {
         const headers = {
