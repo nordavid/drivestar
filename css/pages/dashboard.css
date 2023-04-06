@@ -574,11 +574,14 @@ main section#training.active {
         "settings subcat subcat";
     grid-column-gap: 24px;
     grid-row-gap: 24px;
-    padding: 40px 64px;
+    padding: 28px 64px 32px 64px;
 }
 
-main section#training h2 {
+main section#training h1 {
     grid-area: head;
+    font-family: "Inter", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
 }
 
 main section#training .training-settings {
@@ -655,74 +658,107 @@ main section#training .training-settings .maincat-select-container .maincat-item
 main section#training .training-settings .divider {
     height: 1px;
     background-color: var(--light-grey);
-    margin: 24px 0;
+    margin: 20px 0;
 }
 
 main section#training .training-settings .question-count-container {
     padding: 0 24px;
 }
 
-/* Slider style */
+main section#training .training-settings .time-limit-container {
+    padding: 0 24px;
+}
 
-main section#training .training-settings .question-count-container input {
+/* Slider style */
+main section#training .training-settings input {
     margin-top: 16px;
     width: 100%;
+    appearance: none;
     -webkit-appearance: none;
 }
 
-main section#training .training-settings .question-count-container input:focus {
+main section#training .training-settings input:focus {
     outline: none;
 }
 
-main
-    section#training
-    .training-settings
-    .question-count-container
-    input::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 1px;
-    cursor: pointer;
-    box-shadow: none;
-    background: #ffffff;
-    border-radius: 0px;
-    border: 0px solid #010101;
-}
-
-main section#training .training-settings .question-count-container input::-moz-range-track {
+main section#training .training-settings input::-webkit-slider-runnable-track {
     width: 100%;
     height: 6px;
     cursor: pointer;
-    /* box-shadow: none; */
     background: var(--secondary);
     border-radius: 10px;
-    border: 0px solid #010101;
 }
 
-main section#training .training-settings .question-count-container input::-webkit-slider-thumb {
+main section#training .training-settings input::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: var(--secondary);
+    border-radius: 10px;
+}
+
+main section#training .training-settings input::-webkit-slider-thumb {
     box-shadow: none;
-    border: 0px solid #ffffff;
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
-    height: 42px;
+    border: 6px solid var(--black);
+    height: 22px;
     width: 22px;
     border-radius: 22px;
     background: rgba(255, 255, 255, 1);
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -20px;
+    margin-top: -8px;
 }
 
-main section#training .training-settings .question-count-container input::-moz-range-thumb {
-    box-shadow: none;
+main section#training .training-settings input::-moz-range-thumb {
     border: 6px solid var(--black);
-    height: 10px;
-    width: 10px;
+    height: 22px;
+    width: 22px;
     border-radius: 22px;
     background: var(--white);
     cursor: pointer;
+    box-sizing: border-box;
 }
 
-main section#training .training-settings .question-count-container input::-moz-focus-outer {
+main section#training .training-settings input::-moz-focus-outer {
     border: 0;
+}
+
+.slider-tooltip {
+    position: relative;
+    display: block;
+    width: 70px;
+    height: 31px;
+    background: var(--black);
+    border-radius: 70px;
+    text-align: center;
+    font-weight: 600;
+    padding-top: 6px;
+    box-sizing: border-box;
+    margin-left: -24px;
+    margin-top: 4px;
+    /* left: attr(value); */
+    color: var(--white);
+    font-size: 16px;
+}
+
+.slider-tooltip#question-slider-tooltip {
+    left: 86px;
+}
+
+.slider-tooltip#time-slider-tooltip {
+    left: 32.25px;
+}
+
+.slider-tooltip::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 30px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid var(--black);
 }
 
 /* Start Training Button */
@@ -737,6 +773,7 @@ main section#training .training-settings .start-training-button {
     font-weight: 700;
     background: rgb(49, 203, 83);
     background: linear-gradient(-45deg, rgb(49, 203, 83) 0%, rgb(82, 233, 116) 100%);
+    cursor: pointer;
 }
 
 main section#training .training-settings .start-training-button > :first-child {
