@@ -355,26 +355,44 @@
                         </div>
                         <div class="maincat-item active">
                             <div class="radio-indicator"></div>
-                            <h3>Alle Fragen</h3>
+                            <h3>Grundstoff</h3>
                         </div>
                         <div class="maincat-item">
                             <div class="radio-indicator"></div>
-                            <h3>Alle Fragen</h3>
+                            <h3>Zusatzfragen</h3>
                         </div>
                         <div class="maincat-item">
                             <div class="radio-indicator"></div>
-                            <h3>Alle Fragen</h3>
+                            <h3>Markierte Fragen</h3>
                         </div>
                     </div>
                     <div class="divider"></div>
                     <div class="question-count-container">
                         <h2>Anzahl Fragen</h2>
-                        <input type="range" min="5" max="50" step="5" value="20" />
+                        <input
+                            id="question-slider"
+                            class="slider"
+                            type="range"
+                            min="5"
+                            max="50"
+                            step="5"
+                            value="20"
+                        />
+                        <span id="question-slider-tooltip" class="slider-tooltip">20</span>
                     </div>
                     <div class="divider"></div>
                     <div class="time-limit-container">
                         <h2>Zeitbegrenzung festlegen</h2>
-                        <input type="range" min="1" max="45" value="10" />
+                        <input
+                            id="time-slider"
+                            class="slider"
+                            type="range"
+                            min="5"
+                            max="45"
+                            value="10"
+                            step="5"
+                        />
+                        <span id="time-slider-tooltip" class="slider-tooltip">10 min</span>
                     </div>
                     <div class="divider"></div>
                     <div class="start-training-button">
