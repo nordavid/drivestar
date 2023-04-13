@@ -64,28 +64,34 @@ $endpoints = [
         'access' => AccessTypes::AUTHORIZATION,
         'params' => ['filter']
     ],
-    'category/all' => [
-        'handler' => 'getCategoriesHandler',
-        'method' => HttpRequestMethods::GET,
-        'access' => AccessTypes::AUTHORIZATION,
-        'params' => []
-    ],
-    'category/section' => [
-        'handler' => 'getCategoriesForSectionHandler',
-        'method' => HttpRequestMethods::GET,
-        'access' => AccessTypes::AUTHORIZATION,
-        'params' => ['section']
-    ],
-    'category/bookmarked' => [
-        'handler' => 'getCategoriesBookmarkedHandler',
-        'method' => HttpRequestMethods::GET,
-        'access' => AccessTypes::AUTHORIZATION,
-        'params' => []
-    ],
     'category/stats' => [
         'handler' => 'getCategoryStatsHandler',
         'method' => HttpRequestMethods::GET,
         'access' => AccessTypes::AUTHORIZATION,
         'params' => []
+    ],
+    'question' => [
+        'handler' => 'getQuestionByIdHandler',
+        'method' => HttpRequestMethods::GET,
+        'access' => AccessTypes::AUTHORIZATION,
+        'params' => ['id']
+    ],
+    'question/category' => [
+        'handler' => 'getQuestionsByCategoryIdHandler',
+        'method' => HttpRequestMethods::GET,
+        'access' => AccessTypes::AUTHORIZATION,
+        'params' => ['id']
+    ],
+    'question/progress' => [
+        'handler' => 'getQuestionsProgressHandler',
+        'method' => HttpRequestMethods::GET,
+        'access' => AccessTypes::AUTHORIZATION,
+        'params' => []
+    ],
+    'question/bookmark' => [
+        'handler' => 'bookmarkQuestionHandler',
+        'method' => HttpRequestMethods::POST,
+        'access' => AccessTypes::AUTHORIZATION,
+        'params' => ['id']
     ]
 ];
