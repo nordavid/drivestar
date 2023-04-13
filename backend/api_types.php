@@ -58,6 +58,12 @@ $endpoints = [
         'access' => AccessTypes::AUTHORIZATION,
         'params' => []
     ],
+    'category' => [
+        'handler' => 'getCategoriesHandler',
+        'method' => HttpRequestMethods::GET,
+        'access' => AccessTypes::AUTHORIZATION,
+        'params' => ['filter']
+    ],
     'category/all' => [
         'handler' => 'getCategoriesHandler',
         'method' => HttpRequestMethods::GET,
