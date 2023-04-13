@@ -582,6 +582,7 @@ main section#training h1 {
     font-family: "Inter", sans-serif;
     font-size: 32px;
     font-weight: 700;
+    margin-left: 8px;
 }
 
 main section#training .training-settings {
@@ -590,7 +591,7 @@ main section#training .training-settings {
     border-radius: 24px;
 }
 
-main section#training .training-settings h2 {
+main section#training h2 {
     font-family: "Inter", sans-serif;
     font-size: 18px;
     font-weight: 600;
@@ -783,9 +784,88 @@ main section#training .training-settings .start-training-button > :first-child {
     margin-right: 30px;
 }
 
+/* Subcategories select */
 main section#training .subcats-training {
     grid-area: subcat;
     background-color: var(--white);
     border-radius: 24px;
     padding: 24px;
+}
+
+main section#training .subcats-training .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main section#training .subcats-training .header a {
+    color: var(--grey);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: underline;
+}
+
+main section#training .subcats-training .header a:not(:first-of-type) {
+    margin-left: 16px;
+}
+
+main section#training .subcats-container {
+    margin-top: 16px;
+}
+
+main section#training .subcats-container .subcat-item {
+    background-color: var(--light-grey);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    cursor: pointer;
+    user-select: none;
+}
+
+main section#training .subcats-container .subcat-item.selected {
+    outline: 1px solid var(--secondary);
+}
+
+main section#training .subcats-container .subcat-item:not(:first-of-type) {
+    margin-top: 16px;
+}
+
+main section#training .subcats-container .subcat-item .check-indicator {
+    width: 20px;
+    height: 20px;
+    background-color: var(--white);
+    border: 1px solid var(--grey);
+    border-radius: 100%;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main section#training .subcats-container .subcat-item.selected .check-indicator {
+    width: 20px;
+    height: 20px;
+    background-color: var(--secondary);
+    border: none;
+    border-radius: 100%;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main section#training .subcats-container .subcat-item h3 {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--grey);
+}
+
+main section#training .subcats-container .subcat-item h2 {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 4px;
 }
