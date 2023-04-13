@@ -76,6 +76,26 @@ function get_bearer_token(): string | null
     return null;
 }
 
+function get_user_id(): int
+{
+    $jwt = get_bearer_token();
+
+    $parts = explode(".", $jwt);
+
+    if (empty($parts[1])) {
+        return false;
+    }
+
+    $payload = $parts[1];
+
+    $payloadObj = json_decode(base64url_decode($payload), true);
+    if (isset($payloadObj['user']['userId'])) {
+        return $payloadObj['user']['userId'];
+    }
+
+    return false;
+}
+
 function base64url_encode($data): string
 {
     return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');

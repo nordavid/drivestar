@@ -348,7 +348,7 @@
                 <h1>Einstellungen für Training</h1>
                 <div class="training-settings">
                     <h2>Hauptkategorie wählen</h2>
-                    <div class="maincat-select-container">
+                    <div id="maincat-container" class="maincat-select-container">
                         <div class="maincat-item">
                             <div class="radio-indicator"></div>
                             <h3>Alle Fragen</h3>
@@ -400,7 +400,44 @@
                         Training starten
                     </div>
                 </div>
-                <div class="subcats-training"></div>
+                <div class="subcats-training">
+                    <div class="header">
+                        <h2>Kategorien auswählen</h2>
+                        <div>
+                            <a id="select-all-subcats" href="#">Alle aktivieren</a>
+                            <a id="unselect-all-subcats" href="#">Alle deaktivieren</a>
+                        </div>
+                    </div>
+                    <div id="training-subcat-container" class="subcats-container">
+                        <div class="subcat-item">
+                            <div class="check-indicator">
+                                <img src="./img/icons/fill/subcattick.svg" alt="Checkmark" />
+                            </div>
+                            <div class="subcat-info">
+                                <h3>Kapitel 2.2.02</h3>
+                                <h2>Straßenbenutzung</h2>
+                            </div>
+                        </div>
+                        <div class="subcat-item selected">
+                            <div class="check-indicator">
+                                <img src="./img/icons/fill/subcattick.svg" alt="Checkmark" />
+                            </div>
+                            <div class="subcat-info">
+                                <h3>Kapitel 2.2.02</h3>
+                                <h2>Straßenbenutzung</h2>
+                            </div>
+                        </div>
+                        <div class="subcat-item">
+                            <div class="check-indicator">
+                                <img src="./img/icons/fill/subcattick.svg" alt="Checkmark" />
+                            </div>
+                            <div class="subcat-info">
+                                <h3>Kapitel 2.2.02</h3>
+                                <h2>Straßenbenutzung</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
             <section class="dashboard-section" id="exam"></section>
             <section class="dashboard-section" id="admin"></section>

@@ -16,7 +16,6 @@ if (!array_key_exists($requestedEndpoint, $endpoints)) {
     die(errorMsg("Endpoint nicht gefunden [$requestedEndpoint]", 404));
 }
 
-
 $access = $endpoints[$requestedEndpoint]['access'];
 $handler = $endpoints[$requestedEndpoint]['handler'];
 $method = $endpoints[$requestedEndpoint]['method'];
