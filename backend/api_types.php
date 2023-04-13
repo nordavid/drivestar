@@ -44,12 +44,42 @@ $endpoints = [
         'handler' => 'startExerciseHandler',
         'method' => HttpRequestMethods::POST,
         'access' => AccessTypes::AUTHORIZATION,
-        'params' => ['type', 'minutes', 'question_count', 'categories']
+        'params' => ['type', 'duration', 'question_count', 'categories']
     ],
     'exercise/result' => [
         'handler' => 'getExerciseResultHandler',
         'method' => HttpRequestMethods::GET,
         'access' => AccessTypes::AUTHORIZATION,
         'params' => ['id']
+    ],
+    'exercise/stats' => [
+        'handler' => 'getExerciseStatsHandler',
+        'method' => HttpRequestMethods::GET,
+        'access' => AccessTypes::AUTHORIZATION,
+        'params' => []
+    ],
+    'category/all' => [
+        'handler' => 'getCategoriesHandler',
+        'method' => HttpRequestMethods::GET,
+        'access' => AccessTypes::AUTHORIZATION,
+        'params' => []
+    ],
+    'category/section' => [
+        'handler' => 'getCategoriesForSectionHandler',
+        'method' => HttpRequestMethods::GET,
+        'access' => AccessTypes::AUTHORIZATION,
+        'params' => ['section']
+    ],
+    'category/bookmarked' => [
+        'handler' => 'getCategoriesBookmarkedHandler',
+        'method' => HttpRequestMethods::GET,
+        'access' => AccessTypes::AUTHORIZATION,
+        'params' => []
+    ],
+    'category/stats' => [
+        'handler' => 'getCategoryStatsHandler',
+        'method' => HttpRequestMethods::GET,
+        'access' => AccessTypes::AUTHORIZATION,
+        'params' => []
     ]
 ];
