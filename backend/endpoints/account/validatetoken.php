@@ -2,5 +2,5 @@
 
 function validateJwtHandler()
 {
-    exit(successMsg("Token is gültig"));
+    exit(successMsg("Token ist valide"));
 }
