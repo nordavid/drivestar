@@ -4,29 +4,47 @@ function getCategoryStatsHandler()
     global $conn;
     $userId = get_user_id();
 
+    'SELECT 
+    category.id, category.title AS category_name, 
+    SUM(total_question_counts.question_count) AS question_count 
+FROM 
+    category 
+    JOIN (
+        SELECT 
+            category_id, 
+            COUNT(*) AS question_count 
+        FROM 
+            question 
+        GROUP BY 
+            category_id
+    ) AS total_question_counts ON category.id = total_question_counts.category_id 
+GROUP BY 
+    category.title';
+
+    'SELECT c.title AS category_title, 
+COUNT(DISTINCT q.id) AS total_question_count,
+COUNT(DISTINCT ua.question_id) AS correct_answer_count
+FROM category c
+JOIN question q ON c.id = q.category_id
+LEFT JOIN user_answer ua ON q.id = ua.question_id AND ua.is_correct = 1
+GROUP BY c.title';
+
     try {
         $stmt = $conn->prepare(
-            'SELECT 
-            c.title AS category_title,
-            total_question_count.total_questions,
-            CAST(SUM(ua.is_correct) AS INTEGER) AS correct_answers_count
-            FROM category c 
-                JOIN question q ON q.category_id = c.id 
-                LEFT JOIN user_answer ua ON ua.question_id = q.id
-                LEFT JOIN exercise e ON ua.exercise_id = e.id
+            'SELECT c.title AS category_title, 
+                CAST(SUM(q.total_question_count) AS INT) AS total_question_count,
+                COUNT(DISTINCT ua.question_id) AS correct_answer_count
+            FROM category c
                 JOIN (
-    SELECT 
-      q.category_id, 
-      COUNT(q.id) AS total_questions 
-    FROM 
-      question q 
-    GROUP BY 
-      q.category_id
-  ) AS total_question_count ON total_question_count.category_id = c.id
-          WHERE 
-            e.user_id = :userId
-          GROUP BY 
-            c.title'
+                    SELECT category_id, COUNT(*) AS total_question_count
+                    FROM question
+                    GROUP BY category_id
+                ) q ON c.id = q.category_id
+                LEFT JOIN question qs ON c.id = qs.category_id
+                LEFT JOIN user_answer ua ON qs.id = ua.question_id AND ua.is_correct = 1
+                LEFT JOIN exercise e ON ua.exercise_id = e.id
+            WHERE e.user_id = :userId
+            GROUP BY c.title;'
         );
         $stmt->bindParam(":userId", $userId, PDO::PARAM_STR);
         $stmt->execute();
