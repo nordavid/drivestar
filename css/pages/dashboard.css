@@ -400,7 +400,7 @@ main section#questions #category-select .cat-button .radio-indicator {
     width: 20px;
     height: 20px;
     background-color: var(--white);
-    border: 1px solid var(--light-grey);
+    border: 1px solid var(--grey);
     border-radius: 100%;
     margin-right: 16px;
 }
@@ -449,6 +449,10 @@ main section#questions #subcategory-select .subcategory {
     cursor: pointer;
 }
 
+main section#questions #subcategory-select .subcategory.active {
+    outline: 1px solid var(--secondary);
+}
+
 main section#questions #subcategory-select .subcategory:not(:first-of-type) {
     margin-top: 16px;
 }
@@ -480,6 +484,7 @@ main section#questions #question-container .question {
     border-radius: 14px;
     padding: 24px;
     display: flex;
+    justify-content: space-between;
 }
 
 main section#questions #question-container .question:not(:first-of-type) {

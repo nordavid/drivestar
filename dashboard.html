@@ -12,9 +12,9 @@
         <script src="./js/apiHelper.js"></script>
         <script src="./js/authChecker.js"></script>
         <script src="./js/utils.js"></script>
-        <script defer src="./js/dashboard.js"></script>
-        <script defer src="./js/dashboardQuestion.js"></script>
-        <script defer src="./js/dashboardTraining.js"></script>
+        <script src="./js/dashboard.js"></script>
+        <script src="./js/dashboardQuestion.js"></script>
+        <script src="./js/dashboardTraining.js"></script>
     </head>
     <body>
         <aside>
@@ -68,7 +68,7 @@
                         </div>
                         <div class="active-indicator"></div>
                     </div>
-                    <div class="nav-element">
+                    <div class="nav-element" id="nav-element-logout">
                         <div class="nav-button" onclick="logout()">
                             <img src="./img/icons/line/logout.svg" alt="Logout Icon" />
                             <h3>Abmelden</h3>
@@ -197,19 +197,19 @@
 
             <section class="dashboard-section" id="questions">
                 <div id="category-select">
-                    <div class="cat-button">
+                    <div data-filter="All" class="cat-button">
                         <div class="radio-indicator"></div>
-                        <h2>Alle Fragen</h2>
+                        <h2>Alle Kategorien</h2>
                     </div>
-                    <div class="cat-button active">
+                    <div data-filter="Grundstoff" class="cat-button active">
                         <div class="radio-indicator"></div>
                         <h2>Grundstoff</h2>
                     </div>
-                    <div class="cat-button">
+                    <div data-filter="Zusatzfragen" class="cat-button">
                         <div class="radio-indicator"></div>
                         <h2>Zusatzfragen</h2>
                     </div>
-                    <div class="cat-button">
+                    <div data-filter="Bookmarks" class="cat-button">
                         <div class="radio-indicator"></div>
                         <h2>Markierte Fragen</h2>
                     </div>

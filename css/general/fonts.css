@@ -1,1 +1,71 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@700;800&family=Roboto+Mono:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@700;800&family=Roboto+Mono:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"); */
+
+/* Outfit */
+@font-face {
+    font-family: "Outfit";
+    src: url(../../fonts/Outfit-Bold.ttf);
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "Outfit";
+    src: url(../../fonts/Outfit-ExtraBold.ttf);
+    font-weight: 800;
+}
+
+/* Inter */
+@font-face {
+    font-family: "Inter";
+    src: url(../../fonts/Inter-Regular.ttf);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url(../../fonts/Inter-SemiBold.ttf);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url(../../fonts/Inter-Bold.ttf);
+    font-weight: 700;
+}
+
+/* Roboto */
+@font-face {
+    font-family: "Roboto";
+    src: url(../../fonts/Roboto-Regular.ttf);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(../../fonts/Roboto-Medium.ttf);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(../../fonts/Roboto-Bold.ttf);
+    font-weight: 700;
+}
+
+/* Roboto Mono */
+@font-face {
+    font-family: "Roboto Mono";
+    src: url(../../fonts/RobotoMono-Regular.ttf);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Roboto Mono";
+    src: url(../../fonts/RobotoMono-Medium.ttf);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Roboto Mono";
+    src: url(../../fonts/RobotoMono-Bold.ttf);
+    font-weight: 700;
+}

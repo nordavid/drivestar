@@ -16,13 +16,17 @@ function bookmarkQuestionHandler($id)
             $stmt = $conn->prepare("DELETE FROM bookmark WHERE user_id = :userId AND question_id = :questionId;");
             $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
             $stmt->bindParam(":questionId", $id, PDO::PARAM_INT);
-            $stmt->execute();
+            if ($stmt->execute()) {
+                echo successMsg("Markierung aufgehoben");
+            }
         } else {
             // Add bookmark
-            $stmt = $conn->prepare("INSERT INTO bookmark (user_id, question_id) VALUES (:userId, :questionId;");
+            $stmt = $conn->prepare("INSERT INTO bookmark (user_id, question_id) VALUES (:userId, :questionId);");
             $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
             $stmt->bindParam(":questionId", $id, PDO::PARAM_INT);
-            $stmt->execute();
+            if ($stmt->execute()) {
+                echo successMsg("Frage markiert");
+            }
         }
     } catch (PDOException $e) {
         echo errorMsg($e->getMessage());

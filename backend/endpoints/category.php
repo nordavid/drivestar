@@ -27,7 +27,7 @@ function getCategoriesForSection($section)
             $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo returnData($categories);
         } else {
-            echo errorMsg("Keine Kategorien gefunden");
+            echo errorMsg("Keine Kategorien gefunden", 404);
         }
     } catch (PDOException $e) {
         echo errorMsg($e->getMessage());
@@ -46,7 +46,7 @@ function getAllCategories()
             $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo returnData($categories);
         } else {
-            echo errorMsg("Keine Kategorien gefunden");
+            echo errorMsg("Keine Kategorien gefunden", 404);
         }
     } catch (PDOException $e) {
         echo errorMsg($e->getMessage());
@@ -74,7 +74,7 @@ function getCategoriesForBookmarks()
             $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo returnData($categories);
         } else {
-            echo errorMsg("Keine Kategorien gefunden");
+            echo errorMsg("Keine Kategorien gefunden", 404);
         }
     } catch (PDOException $e) {
         echo errorMsg($e->getMessage());
