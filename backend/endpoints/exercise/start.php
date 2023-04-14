@@ -18,7 +18,10 @@ function startExerciseHandler($type, $duration, $question_count, $categories)
         die(errorMsg("Fehler beim Starten der Übung"));
     }
 
-    echo returnData($questionIds, 201);
+    echo returnData([
+        "exerciseId" => $exerciseId,
+        "questionIds" => $questionIds
+    ], 201);
 }
 
 function insertExercise($userId, $type, $duration): string | false

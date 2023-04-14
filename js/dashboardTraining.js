@@ -5,6 +5,7 @@ function initTrainingSection() {
 
     addSliderEventListeners();
     addTrainingSectionListeners();
+    addTrainingStartBtnListener();
     addTrainingCategoryListeners();
 
     loadTrainingCategories("Grundstoff");
@@ -15,6 +16,7 @@ let questionSlider,
     timeSlider,
     timeTooltip,
     trainingSectionBtns,
+    trainingStartBtn,
     categoryItems,
     selectAllCategoriesBtn,
     deselectAllCategoriesBtn;
@@ -29,6 +31,9 @@ function getTrainingElements() {
 
     timeSlider = document.getElementById("time-slider");
     timeTooltip = document.getElementById("time-slider-tooltip");
+
+    // Training start button
+    trainingStartBtn = document.querySelector(".start-training-button");
 
     // Categories list / checkbox
     categoryItems = document.querySelectorAll(".subcat-item");
@@ -79,16 +84,48 @@ function addTrainingCategoryListeners() {
     deselectAllCategoriesBtn.addEventListener("click", handleDeselectAllCategories);
 }
 
+function addTrainingStartBtnListener() {
+    trainingStartBtn.addEventListener("click", handleTrainingStartBtnClicked);
+}
+
 function handleCategoryToggle(e) {
     e.currentTarget.classList.toggle("selected");
+    onTrainingCategoryChange();
 }
 
 function handleSelectAllCategories() {
     categoryItems.forEach((item) => item.classList.add("selected"));
+    onTrainingCategoryChange();
 }
 
 function handleDeselectAllCategories() {
     categoryItems.forEach((item) => item.classList.remove("selected"));
+    onTrainingCategoryChange();
+}
+
+function handleTrainingStartBtnClicked() {
+    const selectedCatsCount = getSelectedTrainingCategoriesCount();
+    if (selectedCatsCount < 1) {
+        console.log("Wähle mindestens eine Kategorie aus");
+    } else {
+        startTraining();
+    }
+}
+
+function onTrainingCategoryChange() {
+    const selectedCatsCount = getSelectedTrainingCategoriesCount();
+
+    const trainingBtn = document.querySelector(".start-training-button");
+    if (selectedCatsCount < 1) {
+        trainingBtn.style.opacity = 0.5;
+    } else {
+        trainingBtn.style.opacity = 1;
+    }
+}
+
+function getSelectedTrainingCategoriesCount() {
+    const selectedTrainingCategories = document.querySelectorAll(".subcat-item.selected");
+    return selectedTrainingCategories.length;
 }
 
 // Position slider tooltips
@@ -116,6 +153,8 @@ async function loadTrainingCategories(filter) {
 }
 
 function showTrainingCategories(categories) {
+    categoryItems.forEach((item) => item.removeEventListener("click", handleCategoryToggle));
+
     const trainingCategoryContainer = document.querySelector("#training-subcat-container");
     emptyElement(trainingCategoryContainer);
 
@@ -136,4 +175,28 @@ function showTrainingCategories(categories) {
     });
 
     refreshCategories();
+}
+
+function getSelectedTrainingCategoryIds() {
+    let selectedIds = [];
+    const selectedTrainingCategories = document.querySelectorAll(".subcat-item.selected");
+    selectedTrainingCategories.forEach((item) => selectedIds.push(item.dataset.id));
+    return selectedIds;
+}
+
+async function startTraining() {
+    let trainingSettings = new FormData();
+    trainingSettings.append("type", "Practice");
+    trainingSettings.append("duration", timeSlider.value * 60);
+    trainingSettings.append("question_count", questionSlider.value);
+
+    const selectedCatsIds = getSelectedTrainingCategoryIds();
+    for (let i = 0; i < selectedCatsIds.length; i++) {
+        trainingSettings.append("categories[]", selectedCatsIds[i]);
+    }
+
+    const response = await postRequest("exercise/start", trainingSettings, true);
+    const data = await response.text();
+
+    console.log(data);
 }
