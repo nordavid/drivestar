@@ -38,8 +38,6 @@ function initNavigation() {
 }
 
 function loadDashboardSection(section) {
-    console.log(section);
-
     // Hide other dashboard pages
     const dashboardSections = document.querySelectorAll(".dashboard-section");
     dashboardSections.forEach((item) => item.classList.remove("active"));

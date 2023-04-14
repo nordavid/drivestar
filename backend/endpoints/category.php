@@ -60,7 +60,7 @@ function getCategoriesForBookmarks()
 
     try {
         $stmt = $conn->prepare(
-            'SELECT c.id AS category_id, c.title AS category_title, c.section AS category_section
+            'SELECT c.id, c.identifier, c.title, c.section
             FROM bookmark b 
                 JOIN question q ON b.question_id = q.id 
                 JOIN category c ON q.category_id = c.id
