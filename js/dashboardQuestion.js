@@ -1,5 +1,8 @@
+let selectedSection;
+
 function initQuestionSection() {
     loadCategories("Grundstoff");
+    loadQuestions(1, false);
     addSectionEventListeners();
 }
 
@@ -31,7 +34,7 @@ function addBookmarkBtnEventListeners() {
             formData.append("id", e.currentTarget.dataset.id);
 
             const response = await postRequest("question/bookmark", formData, true);
-            const data = await response.text();
+            const data = await response.json();
             console.log(data);
         })
     );
@@ -40,13 +43,18 @@ function addBookmarkBtnEventListeners() {
 function toggleSection(sectionButtons, currentEl) {
     sectionButtons.forEach((item) => item.classList.remove("active"));
     currentEl.classList.add("active");
+
+    selectedSection = currentEl.dataset.filter;
     loadCategories(currentEl.dataset.filter);
+
+    emptyElement(document.querySelector("#question-list"));
 }
 
 function toggleCategory(categoryItems, currentEl) {
     categoryItems.forEach((item) => item.classList.remove("active"));
     currentEl.classList.add("active");
-    loadQuestions(currentEl.dataset.id);
+
+    loadQuestions(currentEl.dataset.id, selectedSection == "Bookmarks" ? true : false);
 }
 
 async function loadCategories(filter) {
@@ -62,13 +70,16 @@ async function loadCategories(filter) {
     }
 }
 
-async function loadQuestions(categoryId) {
-    const response = await getRequest("question/category", { id: categoryId }, true);
+async function loadQuestions(categoryId, bookmarked) {
+    const response = await getRequest(
+        "question/category",
+        { id: categoryId, bookmarked: bookmarked },
+        true
+    );
 
     const data = await response.json();
     if (response.ok) {
         if (!data.error) {
-            console.log(data.payload);
             addQuestions(data.payload);
         }
     } else {
@@ -78,12 +89,12 @@ async function loadQuestions(categoryId) {
 
 function addCategories(categories) {
     const categoryContainer = document.querySelector("#subcategory-select .subcategory-container");
-    categoryContainer.innerHTML = "";
+    emptyElement(categoryContainer);
 
     categories.forEach((category) => {
         const categoryEl = `
             <div data-id="${category.id}" class="subcategory">
-                <h3>${category.identifier}</h3>
+                <h3>Theorie Kapitel: ${category.identifier}</h3>
                 <h2>${category.title}</h2>
             </div>
         `;
@@ -96,7 +107,7 @@ function addCategories(categories) {
 
 function addQuestions(questions) {
     const questionContainer = document.querySelector("#question-list");
-    questionContainer.innerHTML = "";
+    emptyElement(questionContainer);
 
     questions.forEach((question) => {
         const questionEl = `
@@ -115,7 +126,7 @@ function addQuestions(questions) {
             </div>
             ${
                 question.image_path
-                    ? `<div class="question-image"><img src="${question.image_path}" /></div>`
+                    ? `<div class="question-image"><img src="./uploads/${question.image_path}" /></div>`
                     : ""
             }
         </div>
@@ -125,4 +136,8 @@ function addQuestions(questions) {
     });
 
     addBookmarkBtnEventListeners();
+}
+
+function emptyElement(element) {
+    element.innerHTML = "";
 }

@@ -12,8 +12,7 @@ function getQuestionByIdHandler($id)
                 JOIN answer a ON q.id = a.question_id
                 LEFT JOIN bookmark b ON q.id = b.question_id AND b.user_id = :userId
             WHERE q.id = :id
-            GROUP BY q.id
-            LIMIT 20;"
+            GROUP BY q.id;"
         );
         $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);

@@ -47,7 +47,14 @@ function getRandomQuestionIds($categories, $question_count): array | false
     $concatenatedCategories = implode(',', array_fill(0, count($categories), '?'));
 
     try {
-        $stmt = $conn->prepare("SELECT question.id FROM question WHERE category_id IN ($concatenatedCategories) AND question.id NOT IN (SELECT user_answer.question_id FROM user_answer WHERE user_answer.is_correct = 1) ORDER BY RAND() LIMIT ?;");
+        $stmt = $conn->prepare(
+            "SELECT question.id 
+            FROM question 
+            WHERE category_id IN ($concatenatedCategories) 
+                AND question.id NOT IN (SELECT user_answer.question_id FROM user_answer WHERE user_answer.is_correct = 1) 
+            ORDER BY RAND() 
+            LIMIT ?;"
+        );
 
         for ($i = 1; $i <= count($categories); $i++) {
             $stmt->bindParam($i, $categories[$i - 1], PDO::PARAM_STR);

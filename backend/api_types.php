@@ -80,7 +80,7 @@ $endpoints = [
         'handler' => 'getQuestionsByCategoryIdHandler',
         'method' => HttpRequestMethods::GET,
         'access' => AccessTypes::AUTHORIZATION,
-        'params' => ['id']
+        'params' => ['id', 'bookmarked']
     ],
     'question/progress' => [
         'handler' => 'getQuestionsProgressHandler',
