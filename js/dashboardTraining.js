@@ -3,9 +3,7 @@ function initTrainingSection() {
 
     removeEventListeners();
 
-    addSliderEventListeners();
-    addTrainingSectionListeners();
-    addTrainingStartBtnListener();
+    addEventListeners();
     addTrainingCategoryListeners();
 
     loadTrainingCategories("Grundstoff");
@@ -21,6 +19,7 @@ let questionSlider,
     selectAllCategoriesBtn,
     deselectAllCategoriesBtn;
 
+// set elements needed for training settings section
 function getTrainingElements() {
     // Main category / section radio buttons
     trainingSectionBtns = document.querySelectorAll(".maincat-item");
@@ -42,33 +41,41 @@ function getTrainingElements() {
     deselectAllCategoriesBtn = document.querySelector("#unselect-all-subcats");
 }
 
-function refreshCategories() {
-    categoryItems = document.querySelectorAll(".subcat-item");
-    addTrainingCategoryListeners();
-}
-
 function removeEventListeners() {
     trainingSectionBtns.forEach((item) => item.removeEventListener("click", handleSectionSelect));
+
     questionSlider.removeEventListener("input", questionSliderHandler);
     timeSlider.removeEventListener("input", timeSliderHandler);
 
     categoryItems.forEach((item) => item.removeEventListener("click", handleCategoryToggle));
     selectAllCategoriesBtn.removeEventListener("click", handleSelectAllCategories);
     deselectAllCategoriesBtn.removeEventListener("click", handleDeselectAllCategories);
+
+    trainingStartBtn.removeEventListener("click", handleTrainingStartBtnClicked);
 }
 
-function addSliderEventListeners() {
+function addEventListeners() {
+    trainingSectionBtns.forEach((item) => item.addEventListener("click", handleSectionSelect));
+
     questionSlider.addEventListener("input", questionSliderHandler);
     timeSlider.addEventListener("input", timeSliderHandler);
+
+    selectAllCategoriesBtn.addEventListener("click", handleSelectAllCategories);
+    deselectAllCategoriesBtn.addEventListener("click", handleDeselectAllCategories);
+
+    trainingStartBtn.addEventListener("click", handleTrainingStartBtnClicked);
 }
 
-const questionSliderHandler = () => showSliderTooltip(questionSlider, questionTooltip);
-const timeSliderHandler = () => showSliderTooltip(timeSlider, timeTooltip, "min");
-
-function addTrainingSectionListeners() {
-    trainingSectionBtns.forEach((item) => item.addEventListener("click", handleSectionSelect));
+function addTrainingCategoryListeners() {
+    categoryItems.forEach((item) => item.addEventListener("click", handleCategoryToggle));
 }
 
+function refreshCategories() {
+    categoryItems = document.querySelectorAll(".subcat-item");
+    addTrainingCategoryListeners();
+}
+
+// Event handler functions
 function handleSectionSelect(e) {
     const selectedTraingSection = e.currentTarget;
 
@@ -78,14 +85,12 @@ function handleSectionSelect(e) {
     loadTrainingCategories(selectedTraingSection.dataset.filter);
 }
 
-function addTrainingCategoryListeners() {
-    categoryItems.forEach((item) => item.addEventListener("click", handleCategoryToggle));
-    selectAllCategoriesBtn.addEventListener("click", handleSelectAllCategories);
-    deselectAllCategoriesBtn.addEventListener("click", handleDeselectAllCategories);
+function questionSliderHandler() {
+    showSliderTooltip(questionSlider, questionTooltip);
 }
 
-function addTrainingStartBtnListener() {
-    trainingStartBtn.addEventListener("click", handleTrainingStartBtnClicked);
+function timeSliderHandler() {
+    showSliderTooltip(timeSlider, timeTooltip, "min");
 }
 
 function handleCategoryToggle(e) {
@@ -106,8 +111,7 @@ function handleDeselectAllCategories() {
 function handleTrainingStartBtnClicked() {
     const selectedCatsCount = getSelectedTrainingCategoriesCount();
     if (selectedCatsCount < 1) {
-        console.log("Wähle mindestens eine Kategorie aus");
-        showToast("Hello world!");
+        showToast("Wähle mindestens eine Kategorie aus!", "right");
     } else {
         startTraining();
     }
@@ -115,18 +119,14 @@ function handleTrainingStartBtnClicked() {
 
 function onTrainingCategoryChange() {
     const selectedCatsCount = getSelectedTrainingCategoriesCount();
-
     const trainingBtn = document.querySelector(".start-training-button");
+
+    // Check if at least on category is selected
     if (selectedCatsCount < 1) {
         trainingBtn.style.opacity = 0.5;
     } else {
         trainingBtn.style.opacity = 1;
     }
-}
-
-function getSelectedTrainingCategoriesCount() {
-    const selectedTrainingCategories = document.querySelectorAll(".subcat-item.selected");
-    return selectedTrainingCategories.length;
 }
 
 // Position slider tooltips
@@ -178,16 +178,9 @@ function showTrainingCategories(categories) {
     refreshCategories();
 }
 
-function getSelectedTrainingCategoryIds() {
-    let selectedIds = [];
-    const selectedTrainingCategories = document.querySelectorAll(".subcat-item.selected");
-    selectedTrainingCategories.forEach((item) => selectedIds.push(item.dataset.id));
-    return selectedIds;
-}
-
 async function startTraining() {
     let trainingSettings = new FormData();
-    trainingSettings.append("type", "Practice");
+    trainingSettings.append("type", "Training");
     trainingSettings.append("duration", timeSlider.value * 60);
     trainingSettings.append("question_count", questionSlider.value);
 
@@ -200,4 +193,17 @@ async function startTraining() {
     const data = await response.text();
 
     console.log(data);
+}
+
+// util
+function getSelectedTrainingCategoriesCount() {
+    const selectedTrainingCategories = document.querySelectorAll(".subcat-item.selected");
+    return selectedTrainingCategories.length;
+}
+
+function getSelectedTrainingCategoryIds() {
+    let selectedIds = [];
+    const selectedTrainingCategories = document.querySelectorAll(".subcat-item.selected");
+    selectedTrainingCategories.forEach((item) => selectedIds.push(item.dataset.id));
+    return selectedIds;
 }

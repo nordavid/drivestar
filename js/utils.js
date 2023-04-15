@@ -22,18 +22,36 @@ function isAdmin() {
     }
 }
 
-function showToast(message) {
-    // Create a new toast element
+let isToastShown = false;
+
+function showToast(message, position) {
+    // create toast
+    if (isToastShown) {
+        document.querySelector(".toast").innerText = message;
+        return;
+    }
+
+    isToastShown = true;
     const toast = document.createElement("div");
     toast.classList.add("toast");
     toast.innerText = message;
 
-    // Add the toast to the container
+    // add toast to container
     const container = document.getElementById("toast-container");
+    if (position == "right") {
+        container.style.alignItems = "flex-end";
+        toast.style.animationName = "slideInFromRight, fadeOut";
+        toast.style.right = "16px";
+    } else if (position == "left") {
+        container.style.alignItems = "flex-start";
+        toast.style.animationName = "slideInFromLeft, fadeOut";
+        toast.style.left = "16px";
+    }
     container.appendChild(toast);
 
-    // Remove the toast after 3 seconds
+    // remove
     setTimeout(() => {
         container.removeChild(toast);
-    }, 3500);
+        isToastShown = false;
+    }, 4500);
 }
