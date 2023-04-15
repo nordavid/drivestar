@@ -21,3 +21,19 @@ function isAdmin() {
         return parseJwt(token).user.isAdmin;
     }
 }
+
+function showToast(message) {
+    // Create a new toast element
+    const toast = document.createElement("div");
+    toast.classList.add("toast");
+    toast.innerText = message;
+
+    // Add the toast to the container
+    const container = document.getElementById("toast-container");
+    container.appendChild(toast);
+
+    // Remove the toast after 3 seconds
+    setTimeout(() => {
+        container.removeChild(toast);
+    }, 3500);
+}

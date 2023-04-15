@@ -592,6 +592,7 @@ main section#training h1 {
 
 main section#training .training-settings {
     grid-area: settings;
+    align-self: start;
     background-color: var(--white);
     border-radius: 24px;
 }
