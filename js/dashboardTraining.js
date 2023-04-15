@@ -107,6 +107,7 @@ function handleTrainingStartBtnClicked() {
     const selectedCatsCount = getSelectedTrainingCategoriesCount();
     if (selectedCatsCount < 1) {
         console.log("Wähle mindestens eine Kategorie aus");
+        showToast("Hello world!");
     } else {
         startTraining();
     }
