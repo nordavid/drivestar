@@ -885,10 +885,17 @@ main section#training .subcats-container .subcat-item h2 {
     right: 0;
     bottom: 0;
     backdrop-filter: blur(24px);
-    display: flex;
+    display: none;
+    opacity: 0;
     justify-content: center;
     align-items: center;
     /* overflow: auto; */
+
+    animation-name: fadeIn;
+    animation-duration: 0.3s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
 }
 
 #exercise-container {
