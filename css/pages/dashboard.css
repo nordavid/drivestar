@@ -403,6 +403,7 @@ main section#questions #category-select .cat-button .radio-indicator {
     border: 1px solid var(--grey);
     border-radius: 100%;
     margin-right: 16px;
+    flex-shrink: 0;
 }
 
 main section#questions #category-select .cat-button.active .radio-indicator {
@@ -529,6 +530,15 @@ main section#questions #question-container .question .save-question-button {
     margin-top: 12px;
     border-radius: 100px;
     cursor: pointer;
+    transition: 0.2s;
+}
+
+main section#questions #question-container .question .save-question-button:hover {
+    opacity: 0.7;
+}
+
+main section#questions #question-container .question .save-question-button:active {
+    opacity: 0.5;
 }
 
 main section#questions #question-container .question.saved .save-question-button {
@@ -742,10 +752,16 @@ main section#training .training-settings input::-moz-focus-outer {
     padding-top: 6px;
     box-sizing: border-box;
     margin-left: -24px;
-    margin-top: 4px;
+    margin-top: 10px;
     /* left: attr(value); */
     color: var(--white);
     font-size: 16px;
+}
+
+@-moz-document url-prefix() {
+    .slider-tooltip {
+        margin-top: 4px;
+    }
 }
 
 .slider-tooltip#question-slider-tooltip {
@@ -909,6 +925,7 @@ main section#training .subcats-container .subcat-item h2 {
     grid-column-gap: 24px;
     grid-row-gap: 24px;
     margin-top: 64px;
+    margin-bottom: 64px;
 }
 
 /* Exercise header */
@@ -1016,6 +1033,14 @@ main section#training .subcats-container .subcat-item h2 {
     align-self: flex-start;
 }
 
+#exercise-question-container .question-content .save-question-button:hover {
+    opacity: 0.7;
+}
+
+#exercise-question-container .question-content .save-question-button:active {
+    opacity: 0.5;
+}
+
 #exercise-question.saved .question-content .save-question-button {
     background-color: var(--secondary);
 }
@@ -1074,11 +1099,11 @@ main section#training .subcats-container .subcat-item h2 {
 
 #exercise-question-selector .header .color-caption .color-example.yellow {
     background-color: var(--primary);
+    margin-left: 24px;
 }
 
 #exercise-question-selector .header .color-caption .color-example.black {
     background-color: var(--black);
-    margin-left: 24px;
 }
 
 #exercise-question-selector #question-id-selector {
@@ -1111,13 +1136,13 @@ main section#training .subcats-container .subcat-item h2 {
 }
 
 #exercise-question-selector #question-id-selector .selector-item.done {
-    background-color: var(--black);
-    color: var(--white);
+    background-color: var(--primary);
+    color: var(--black);
 }
 
 #exercise-question-selector #question-id-selector .selector-item.current {
-    background-color: var(--primary);
-    color: var(--black);
+    background-color: var(--black);
+    color: var(--white);
 }
 
 /* Exercise right section (answers) */
@@ -1153,6 +1178,7 @@ main section#training .subcats-container .subcat-item h2 {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 #exercise-answers-container .exercise-answer .check-indicator img {
@@ -1169,7 +1195,6 @@ main section#training .subcats-container .subcat-item h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
 }
 
 #exercise-answers-container .exercise-answer.selected .check-indicator img {

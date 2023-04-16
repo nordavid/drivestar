@@ -192,10 +192,8 @@ async function startTraining() {
     const response = await postRequest("exercise/start", trainingSettings, true);
     const data = await response.json();
 
-    console.log(data);
-
-    const training = new Exercise(
-        "Training",
+    new Exercise(
+        Exercise.Type.Exam,
         data.payload.exerciseId,
         timeSlider.value * 60,
         data.payload.questionIds
