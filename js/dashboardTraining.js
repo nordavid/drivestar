@@ -134,8 +134,8 @@ function showSliderTooltip(slider, tooltip, unitname = "") {
     tooltip.innerHTML = slider.value + " " + unitname;
     const bulletPosition = (slider.value - slider.min) / (slider.max - slider.min);
 
-    console.log(bulletPosition);
-    console.log(bulletPosition * slider.offsetWidth + "px");
+    // console.log(bulletPosition);
+    // console.log(bulletPosition * slider.offsetWidth + "px");
 
     tooltip.style.left = bulletPosition * (slider.offsetWidth - 22) + "px";
 }
@@ -190,9 +190,16 @@ async function startTraining() {
     }
 
     const response = await postRequest("exercise/start", trainingSettings, true);
-    const data = await response.text();
+    const data = await response.json();
 
     console.log(data);
+
+    const training = new Exercise(
+        "Training",
+        data.payload.exerciseId,
+        timeSlider.value * 60,
+        data.payload.questionIds
+    );
 }
 
 // util

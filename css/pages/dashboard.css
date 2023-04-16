@@ -888,8 +888,8 @@ main section#training .subcats-container .subcat-item h2 {
     display: none;
     opacity: 0;
     justify-content: center;
-    align-items: center;
-    /* overflow: auto; */
+    align-items: flex-start;
+    overflow: auto;
 
     animation-name: fadeIn;
     animation-duration: 0.3s;
@@ -908,9 +908,10 @@ main section#training .subcats-container .subcat-item h2 {
         "question answers";
     grid-column-gap: 24px;
     grid-row-gap: 24px;
-    margin-bottom: 16px;
+    margin-top: 64px;
 }
 
+/* Exercise header */
 #exercise-container #exercise-header {
     grid-area: header;
     background-color: var(--black);
@@ -919,7 +920,7 @@ main section#training .subcats-container .subcat-item h2 {
     align-items: center;
     justify-content: space-between;
     border-radius: 24px;
-    padding: 16px 16px 16px 24px;
+    padding: 16px 16px 16px 32px;
 }
 
 #exercise-header p {
@@ -949,13 +950,14 @@ main section#training .subcats-container .subcat-item h2 {
 }
 
 #exercise-header #cancel-exercise-btn:hover {
-    background-color: var(--grey);
+    background-color: rgb(70, 70, 70);
 }
 
 #exercise-header #cancel-exercise-btn:active {
     background-color: var(--dark-grey);
 }
 
+/* Exercise left side (question and question-selector) */
 #exercise-container #exercise-left {
     grid-area: question;
 }
@@ -1014,11 +1016,11 @@ main section#training .subcats-container .subcat-item h2 {
     align-self: flex-start;
 }
 
-#exercise-question-container.saved .question-content .save-question-button {
+#exercise-question.saved .question-content .save-question-button {
     background-color: var(--secondary);
 }
 
-#exercise-question-container.saved .question-content .save-question-button img {
+#exercise-question.saved .question-content .save-question-button img {
     display: block;
     background: url(../../img/icons/fill/saved.svg) no-repeat;
     width: 16px;
@@ -1026,14 +1028,14 @@ main section#training .subcats-container .subcat-item h2 {
     padding-left: 16px;
 }
 
-#exercise-question-container .question-content .save-question-button h3 {
+#exercise-question .question-content .save-question-button h3 {
     font-size: 14px;
     color: var(--grey);
     font-weight: 400;
     margin-left: 8px;
 }
 
-#exercise-question-container.saved .question-content .save-question-button h3 {
+#exercise-question.saved .question-content .save-question-button h3 {
     color: var(--white);
 }
 
@@ -1118,9 +1120,9 @@ main section#training .subcats-container .subcat-item h2 {
     color: var(--black);
 }
 
-#exercise-container #exercise-answers-container {
+/* Exercise right section (answers) */
+#exercise-container #exercise-right {
     grid-area: answers;
-    /* background-color: red; */
 }
 
 #exercise-answers-container .exercise-answer {
@@ -1131,6 +1133,10 @@ main section#training .subcats-container .subcat-item h2 {
     padding-inline: 24px;
     border-radius: 20px;
     cursor: pointer;
+}
+
+#exercise-answers-container .exercise-answer p {
+    line-height: 150%;
 }
 
 #exercise-answers-container .exercise-answer:not(:first-of-type) {
@@ -1163,13 +1169,14 @@ main section#training .subcats-container .subcat-item h2 {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 #exercise-answers-container .exercise-answer.selected .check-indicator img {
     visibility: visible;
 }
 
-#exercise-answers-container .confirm-answer-btn {
+#exercise-right .confirm-answer-btn {
     margin-top: 24px;
     background-color: var(--secondary);
     display: flex;
@@ -1186,10 +1193,10 @@ main section#training .subcats-container .subcat-item h2 {
     transition: 0.2s;
 }
 
-#exercise-answers-container .confirm-answer-btn:hover {
+#exercise-right .confirm-answer-btn:hover {
     opacity: 0.7;
 }
 
-#exercise-answers-container .confirm-answer-btn:active {
+#exercise-right .confirm-answer-btn:active {
     opacity: 0.5;
 }

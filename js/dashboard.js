@@ -60,17 +60,11 @@ function loadDashboardSection(section) {
             break;
 
         case "exam":
-            testShowExercise();
             break;
 
         default:
             break;
     }
-}
-
-function testShowExercise() {
-    const eW = document.getElementById("exercise-window");
-    eW.style.display = "flex";
 }
 
 // Functions
