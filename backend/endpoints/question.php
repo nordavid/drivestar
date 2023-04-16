@@ -7,7 +7,10 @@ function getQuestionByIdHandler($id)
 
     try {
         $stmt = $conn->prepare(
-            "SELECT q.*, GROUP_CONCAT(a.answer SEPARATOR '|') AS answers, IF(b.user_id IS NOT NULL, 1, 0) AS is_bookmarked 
+            "SELECT q.*,  
+                GROUP_CONCAT(a.answer SEPARATOR '|') AS answers, 
+                GROUP_CONCAT(a.is_correct SEPARATOR '|') AS correct_answers, 
+                IF(b.user_id IS NOT NULL, 1, 0) AS is_bookmarked 
             FROM question q
                 JOIN answer a ON q.id = a.question_id
                 LEFT JOIN bookmark b ON q.id = b.question_id AND b.user_id = :userId
@@ -19,9 +22,24 @@ function getQuestionByIdHandler($id)
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            $question = $stmt->fetch(PDO::FETCH_ASSOC);
-            $question['answers'] = explode('|', $question['answers']);
-            echo returnData($question);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $answersArr = [];
+            $answers = explode('|', $row['answers']);
+            $is_correct_answers = explode('|', $row['correct_answers']);
+
+            for ($i = 0; $i < count($answers); $i++) {
+                $answer = [
+                    'answer' => $answers[$i],
+                    'is_correct' => ($is_correct_answers[$i] == '1')
+                ];
+                $answersArr[] = $answer;
+            }
+
+            $row['answers'] = $answersArr;
+            unset($row['correct_answers']);
+
+            echo returnData($row);
         } else {
             echo errorMsg("Frage nicht gefunden");
         }
