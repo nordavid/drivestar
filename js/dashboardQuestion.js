@@ -2,7 +2,7 @@ let selectedSection;
 
 function initQuestionSection() {
     loadCategories("Grundstoff");
-    loadQuestions(1, false);
+    // loadQuestions(1, false);
     addSectionEventListeners();
 }
 
@@ -103,6 +103,10 @@ function addCategories(categories) {
     });
 
     addCategoryEventListeners();
+
+    // Load questions for first visible category and highlight first category
+    const subcatItems = document.querySelector(".subcategory").classList.add("active");
+    loadQuestions(categories[0].id, selectedSection == "Bookmarks" ? true : false);
 }
 
 function addQuestions(questions) {
