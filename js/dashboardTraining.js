@@ -179,7 +179,7 @@ function showTrainingCategories(categories) {
 }
 
 async function startTraining() {
-    let trainingSettings = new FormData();
+    const trainingSettings = new FormData();
     trainingSettings.append("type", "Training");
     trainingSettings.append("duration", timeSlider.value * 60);
     trainingSettings.append("question_count", questionSlider.value);
@@ -193,7 +193,7 @@ async function startTraining() {
     const data = await response.json();
 
     new Exercise(
-        Exercise.Type.Exam,
+        Exercise.Type.Training,
         data.payload.exerciseId,
         timeSlider.value * 60,
         data.payload.questionIds

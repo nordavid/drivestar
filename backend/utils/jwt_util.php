@@ -32,7 +32,7 @@ function validate_token(string $jwt)
     $payload = $parts[1];
     $signature = $parts[2];
 
-    $valid_signature = hash_hmac('sha256', $header . "." . $payload, getenv("SECRET_KEY"), true);
+    $valid_signature = hash_hmac('sha256', $header . "." . $payload, SECRET_KEY, true);
     $base64_url_signature = base64url_encode($valid_signature);
     if ($signature !== $base64_url_signature) {
         return false;

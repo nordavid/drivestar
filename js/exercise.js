@@ -18,6 +18,7 @@ class Exercise {
 
         this.answerButtons = null;
         this.exerciseWindow = document.getElementById("exercise-window");
+        this.exerciseContainer = document.getElementById("exercise-container");
         this.questionContainer = document.getElementById("exercise-question-container");
         this.confirmBtn = document.getElementById("confirm-exercise-answer");
         this.quitBtn = document.getElementById("cancel-exercise-btn");
@@ -28,8 +29,11 @@ class Exercise {
 
     init() {
         if (this.type == Exercise.Type.Training) {
-            document.getElementById("exercise-question-selector").style.visibility = "hidden";
+            this.exerciseContainer.classList.add("training");
+            this.exerciseContainer.classList.remove("exam");
         } else {
+            this.exerciseContainer.classList.add("exam");
+            this.exerciseContainer.classList.remove("training");
             this.confirmBtn.innerText = "Weiter";
             document.querySelector("#cancel-exercise-btn p").innerText = "Prüfung abbrechen";
             this.initQuestionSelector();
@@ -98,7 +102,7 @@ class Exercise {
         if (this.currentQuestionNumber in this.answerDetails) {
             for (let i = 0; i < this.answerButtons.length; i++) {
                 const element = this.answerButtons[i];
-                if (this.answerDetails[this.currentQuestionNumber][i])
+                if (this.answerDetails[this.currentQuestionNumber][i].selected)
                     element.classList.add("selected");
             }
         }
@@ -156,17 +160,19 @@ class Exercise {
     }
 
     markQuestionAsAnswered(questionNumber) {
-        console.log(this.answeredQuestions);
-        console.log("hund" + this.currentQuestionNumber);
-        if (!this.answeredQuestions.includes(this.currentQuestionNumber)) {
-            console.log("hundekatze");
+        if (!this.answeredQuestions.includes(questionNumber)) {
             this.answeredQuestions.push(questionNumber);
             this.updateAnsweredQuestionCount();
 
             this.answerDetails[questionNumber] = [];
-            this.answerButtons.forEach((item) => {
-                this.answerDetails[questionNumber].push(item.classList.contains("selected"));
+            this.answerButtons.forEach((item, index) => {
+                this.answerDetails[questionNumber].push({
+                    id: this.currentQuestion.answers[index].id,
+                    selected: item.classList.contains("selected"),
+                });
             });
+
+            console.log(this.answerDetails);
 
             if (this.type == Exercise.Type.Exam) {
                 const selectorItem = document.querySelector(
@@ -174,6 +180,21 @@ class Exercise {
                 );
                 selectorItem.classList.add("done");
             }
+
+            const formData = new FormData();
+            formData.append("exercise_id", this.id);
+            formData.append("question_id", this.questionIds[questionNumber - 1]);
+
+            for (let i = 0; i < this.answerDetails[questionNumber].length; i++) {
+                formData.append(
+                    "user_answers[]",
+                    JSON.stringify(this.answerDetails[questionNumber][i])
+                );
+            }
+
+            postRequest("exercise/useranswer", formData, true)
+                .then((response) => response.text())
+                .then((data) => console.log(data));
         }
     }
 
@@ -217,12 +238,11 @@ class Exercise {
         bookMarkBtn.addEventListener("click", async (e) => {
             e.currentTarget.closest("#exercise-question").classList.toggle("saved");
 
-            let formData = new FormData();
+            const formData = new FormData();
             formData.append("id", e.currentTarget.dataset.id);
 
             const response = await postRequest("question/bookmark", formData, true);
             const data = await response.json();
-            console.log(data);
         });
     }
 

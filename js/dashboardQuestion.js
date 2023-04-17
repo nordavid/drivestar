@@ -30,7 +30,7 @@ function addBookmarkBtnEventListeners() {
         item.addEventListener("click", async (e) => {
             e.currentTarget.closest(".question").classList.toggle("saved");
 
-            let formData = new FormData();
+            const formData = new FormData();
             formData.append("id", e.currentTarget.dataset.id);
 
             const response = await postRequest("question/bookmark", formData, true);
