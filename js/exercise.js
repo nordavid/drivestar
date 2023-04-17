@@ -31,6 +31,7 @@ class Exercise {
             document.getElementById("exercise-question-selector").style.visibility = "hidden";
         } else {
             this.confirmBtn.innerText = "Weiter";
+            document.querySelector("#cancel-exercise-btn p").innerText = "Prüfung abbrechen";
             this.initQuestionSelector();
         }
         this.exerciseWindow.style.display = "flex";
@@ -155,7 +156,10 @@ class Exercise {
     }
 
     markQuestionAsAnswered(questionNumber) {
+        console.log(this.answeredQuestions);
+        console.log("hund" + this.currentQuestionNumber);
         if (!this.answeredQuestions.includes(this.currentQuestionNumber)) {
+            console.log("hundekatze");
             this.answeredQuestions.push(questionNumber);
             this.updateAnsweredQuestionCount();
 
@@ -235,7 +239,7 @@ class Exercise {
     }
 
     handleSelectorItemClick(e) {
-        this.jumpToQuestion(e.currentTarget.dataset.id);
+        this.jumpToQuestion(parseInt(e.currentTarget.dataset.id));
 
         const elements = document.querySelectorAll("#question-id-selector .selector-item");
         elements.forEach((item) => item.classList.remove("current"));
@@ -269,18 +273,20 @@ class Exercise {
         }
     }
 
-    handleExamConfirmation() {
-        if (
-            this.answeredQuestions.length >= this.questionIds.length ||
-            this.currentQuestionNumber >= this.questionIds.length
-        ) {
+    handleExamConfirmation(e) {
+        if (this.areAllQuestionsAnswered()) {
             console.log("raus da");
             return;
         }
 
         this.markQuestionAsAnswered(this.currentQuestionNumber);
+        if (this.areAllQuestionsAnswered()) {
+            e.currentTarget.innerText = "Prüfung beenden";
+        }
 
-        this.goToNextQuestion();
+        if (!this.isLastQuestion()) {
+            this.goToNextQuestion();
+        }
     }
 
     // Util methods

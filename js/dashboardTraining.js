@@ -193,7 +193,7 @@ async function startTraining() {
     const data = await response.json();
 
     new Exercise(
-        Exercise.Type.Training,
+        Exercise.Type.Exam,
         data.payload.exerciseId,
         timeSlider.value * 60,
         data.payload.questionIds
