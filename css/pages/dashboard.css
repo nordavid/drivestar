@@ -921,6 +921,7 @@ main section#training .subcats-container .subcat-item h2 {
     grid-template-rows: auto auto;
     grid-template-areas:
         "header header"
+        "selector selector"
         "question answers";
     grid-column-gap: 24px;
     grid-row-gap: 24px;
