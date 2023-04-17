@@ -6,20 +6,19 @@ function getCategoryStatsHandler()
 
     try {
         $stmt = $conn->prepare(
-            'SELECT c.title AS category_title, 
-                CAST(SUM(q.total_question_count) AS INT) AS total_question_count,
-                COUNT(DISTINCT ua.question_id) AS correct_answer_count
-            FROM category c
-                JOIN (
-                    SELECT category_id, COUNT(*) AS total_question_count
-                    FROM question
-                    GROUP BY category_id
-                ) q ON c.id = q.category_id
-                LEFT JOIN question qs ON c.id = qs.category_id
-                LEFT JOIN user_answer ua ON qs.id = ua.question_id AND ua.is_correct = 1
-                LEFT JOIN exercise e ON ua.exercise_id = e.id
+            'SELECT 
+            c.title AS category_title, 
+            COUNT(q.id) AS total_question_count,
+            CAST(COALESCE(SUM(ua.is_correct), 0) AS INTEGER) AS correct_answer_count
+        FROM category c 
+        JOIN question q ON q.category_id = c.id 
+        LEFT JOIN (
+            SELECT ua.question_id, e.id AS exercise_id, ua.is_correct
+            FROM user_answer ua 
+            JOIN exercise e ON ua.exercise_id = e.id 
             WHERE e.user_id = :userId
-            GROUP BY c.title;'
+        ) ua ON ua.question_id = q.id 
+        GROUP BY c.title;'
         );
         $stmt->bindParam(":userId", $userId, PDO::PARAM_STR);
         $stmt->execute();

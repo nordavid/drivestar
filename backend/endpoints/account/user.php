@@ -1,11 +1,13 @@
 <?php
-function getUserHandler($id)
+function getUserHandler()
 {
+    $userId = get_user_id();
+
     try {
         global $conn;
-        $sql = "SELECT * FROM user WHERE user.id = :id LIMIT 1;";
+        $sql = "SELECT username, profilepicture, is_admin FROM user WHERE user.id = :id LIMIT 1;";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->bindParam(":id", $userId, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
