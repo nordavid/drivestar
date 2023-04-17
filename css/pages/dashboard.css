@@ -925,8 +925,18 @@ main section#training .subcats-container .subcat-item h2 {
         "question answers";
     grid-column-gap: 24px;
     grid-row-gap: 24px;
-    margin-top: 64px;
-    margin-bottom: 64px;
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+#exercise-container.training {
+    grid-template-areas:
+        "header header"
+        "question answers";
+}
+
+#exercise-container.training #exercise-question-selector {
+    display: none;
 }
 
 /* Exercise header */
@@ -1066,9 +1076,8 @@ main section#training .subcats-container .subcat-item h2 {
 }
 
 #exercise-container #exercise-question-selector {
-    grid-area: nav;
+    grid-area: selector;
     background-color: var(--white);
-    margin-top: 16px;
     padding: 24px;
     border-radius: 24px;
 }

@@ -46,6 +46,12 @@ $endpoints = [
         'access' => AccessTypes::AUTHORIZATION,
         'params' => ['type', 'duration', 'question_count', 'categories']
     ],
+    'exercise/useranswer' => [
+        'handler' => 'userAnswerHandler',
+        'method' => HttpRequestMethods::POST,
+        'access' => AccessTypes::AUTHORIZATION,
+        'params' => ['exercise_id', 'question_id', 'user_answers']
+    ],
     'exercise/result' => [
         'handler' => 'getExerciseResultHandler',
         'method' => HttpRequestMethods::GET,

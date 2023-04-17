@@ -1,3 +1,2 @@
 <?php
-
-putenv("SECRET_KEY=Xv18n2c59G/2+iLRNC/m+B9anmWOZhsE87GL3/wiBXzatIzQiQMqh5QjypTubj9S9veuLRtBIYFmRbq+3vcUaDAXWqaASJSPZJZL5Dd7Xe3i");
+define("SECRET_KEY", "Xv18n2c59G/2+iLRNC/m+B9anmWOZhsE87GL3/wiBXzatIzQiQMqh5QjypTubj9S9veuLRtBIYFmRbq+3vcUaDAXWqaASJSPZJZL5Dd7Xe3i");

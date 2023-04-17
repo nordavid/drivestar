@@ -55,11 +55,11 @@ function check_authentication()
     $bearerToken = get_bearer_token();
 
     if (!$bearerToken)
-        die(errorMsg("Nicht authorisiert", 401));
+        die(errorMsg("Nicht authorisiert. Token nicht gefunden.", 401));
 
 
     if (!validate_token($bearerToken))
-        die(errorMsg("Nicht authorisiert", 401));
+        die(errorMsg("Nicht authorisiert. Token konnte nicht validiert werden. $bearerToken", 401));
 }
 
 function get_server_request_method(): HttpRequestMethods
