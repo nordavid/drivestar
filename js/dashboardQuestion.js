@@ -2,7 +2,6 @@ let selectedSection;
 
 function initQuestionSection() {
     loadCategories("Grundstoff");
-    // loadQuestions(1, false);
     addSectionEventListeners();
 }
 
@@ -91,6 +90,11 @@ function addCategories(categories) {
     const categoryContainer = document.querySelector("#subcategory-select .subcategory-container");
     emptyElement(categoryContainer);
 
+    if (categories.length == 0) {
+        categoryContainer.innerText = "Keine Kategorien gefunden";
+        return;
+    }
+
     categories.forEach((category) => {
         const categoryEl = `
             <div data-id="${category.id}" class="subcategory">
@@ -105,13 +109,18 @@ function addCategories(categories) {
     addCategoryEventListeners();
 
     // Load questions for first visible category and highlight first category
-    const subcatItems = document.querySelector(".subcategory").classList.add("active");
+    document.querySelector(".subcategory").classList.add("active");
     loadQuestions(categories[0].id, selectedSection == "Bookmarks" ? true : false);
 }
 
 function addQuestions(questions) {
     const questionContainer = document.querySelector("#question-list");
     emptyElement(questionContainer);
+
+    if (questions.length == 0) {
+        questionContainer.innerText = "Keine Fragen gefunden";
+        return;
+    }
 
     questions.forEach((question) => {
         const questionEl = `

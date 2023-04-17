@@ -74,7 +74,8 @@ function getCategoriesForBookmarks()
             $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo returnData($categories);
         } else {
-            echo errorMsg("Keine Kategorien gefunden", 404);
+            // echo errorMsg("Keine Kategorien gefunden", 404);
+            echo returnData([]);
         }
     } catch (PDOException $e) {
         echo errorMsg($e->getMessage());

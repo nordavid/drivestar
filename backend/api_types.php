@@ -38,7 +38,7 @@ $endpoints = [
         'handler' => 'getUserHandler',
         'method' => HttpRequestMethods::GET,
         'access' => AccessTypes::AUTHORIZATION,
-        'params' => ['id']
+        'params' => []
     ],
     'exercise/start' => [
         'handler' => 'startExerciseHandler',

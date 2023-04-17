@@ -59,7 +59,7 @@ function getQuestionsByCategoryIdHandler($id, $bookmarked)
             }
             echo returnData($questions);
         } else {
-            echo errorMsg("Keine Fragen gefunden", 404);
+            echo returnData([]);
         }
     } catch (PDOException $e) {
         echo errorMsg($e->getMessage());

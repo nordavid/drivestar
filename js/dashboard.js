@@ -2,10 +2,10 @@ window.onload = function () {
     initDashboard();
 };
 
-function initDashboard() {
+async function initDashboard() {
     redirectIfNotAuthenticated();
 
-    if (isAdmin()) {
+    if (await isAdmin()) {
         document.querySelector(".nav-admin").classList.remove("hidden");
     }
 
@@ -68,6 +68,15 @@ function loadDashboardSection(section) {
 }
 
 // Functions
+function loadDashboardContent() {
+    loadProfileInfo();
+}
+
+async function loadProfileInfo() {
+    const response = await getRequest("account/user", {}, true);
+    const data = await response.json();
+}
+
 function logout() {
     localStorage.removeItem("jwtToken");
     window.location.href = "./";
