@@ -1,10 +1,6 @@
 <?php
 function userAnswerHandler($exercise_id, $question_id, $user_answers)
 {
-
-
-    $isCorrect = true;
-
     global $conn;
 
     try {
@@ -25,16 +21,37 @@ function userAnswerHandler($exercise_id, $question_id, $user_answers)
                 foreach ($answers as $answer) {
                     if (intval($uaObj["id"]) == $answer["id"]) {
                         if ($uaObj["selected"] != $answer["is_correct"]) {
-                            $isCorrect = false;
                             exit(successMsg("Antwort gespeichert"));
                         }
                     }
                 }
             }
+
+            setUserAnswerToCorrect($exercise_id, $question_id);
         } else {
             echo errorMsg();
         }
     } catch (PDOException $e) {
         echo errorMsg($e->getMessage());
+    }
+}
+
+function setUserAnswerToCorrect($exercise_id, $question_id)
+{
+    global $conn;
+
+    try {
+        $stmt = $conn->prepare(
+            "UPDATE user_answer 
+            SET is_correct = 1 
+            WHERE exercise_id = :exerciseId AND question_id = :questionId;"
+        );
+        $stmt->bindParam(":exerciseId", $exercise_id, PDO::PARAM_INT);
+        $stmt->bindParam(":questionId", $question_id, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            echo successMsg("Frage beantwortet");
+        }
+    } catch (PDOException $e) {
+        die(errorMsg($e->getMessage()));
     }
 }

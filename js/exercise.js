@@ -172,8 +172,6 @@ class Exercise {
                 });
             });
 
-            console.log(this.answerDetails);
-
             if (this.type == Exercise.Type.Exam) {
                 const selectorItem = document.querySelector(
                     `.selector-item[data-id="${questionNumber}"]`
