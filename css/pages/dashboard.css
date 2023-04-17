@@ -1160,6 +1160,14 @@ main section#training .subcats-container .subcat-item h2 {
     cursor: pointer;
 }
 
+#exercise-answers-container .exercise-answer.correct {
+    outline: 2px solid var(--secondary);
+}
+
+#exercise-answers-container .exercise-answer.wrong {
+    outline: 2px solid var(--accent);
+}
+
 #exercise-answers-container .exercise-answer p {
     line-height: 150%;
 }
