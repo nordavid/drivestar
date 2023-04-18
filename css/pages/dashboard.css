@@ -124,6 +124,8 @@ header #profile-info {
 
 header #profile-info img {
     border-radius: 100%;
+    width: 70px;
+    height: 70px;
 }
 
 header #profile-info #profile-name {
@@ -212,7 +214,7 @@ main section#dashboard.active {
 }
 
 .widget#total-progress .progress .bar {
-    width: 30%;
+    width: 0%;
     background-color: var(--primary);
     height: 100%;
     border-radius: inherit;
@@ -348,7 +350,7 @@ main section#dashboard.active {
 }
 
 .widget .category-progress .progress .bar {
-    width: 30%;
+    /* width: 30%; */
     background-color: var(--primary);
     height: 100%;
     border-radius: inherit;
