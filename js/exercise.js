@@ -14,6 +14,7 @@ class Exercise {
         this.answeredQuestions = [];
         this.answerDetails = {};
         this.isSolutionMode = false;
+        this.isExamEvaluationMode = false;
         this.timer = null;
 
         this.answerButtons = null;
@@ -36,6 +37,7 @@ class Exercise {
         if (this.type == Exercise.Type.Training) {
             this.exerciseContainer.classList.add("training");
             this.exerciseContainer.classList.remove("exam");
+            document.querySelector("#cancel-exercise-btn p").innerText = "Training abbrechen";
         } else {
             this.exerciseContainer.classList.add("exam");
             this.exerciseContainer.classList.remove("training");
@@ -153,6 +155,8 @@ class Exercise {
         if (this.type == Exercise.Type.Exam) {
             this.setQuestionSelectorItemActive(this.currentQuestionNumber);
         }
+
+        this.isExamEvaluationMode && this.displaySolution();
     }
 
     async markQuestionAsAnswered(questionNumber) {
@@ -258,9 +262,12 @@ class Exercise {
     }
 
     handleAnswerClicked(e) {
+        if (this.isSolutionMode) {
+            return;
+        }
+
         if (
-            (!this.isSolutionMode &&
-                !this.answeredQuestions.includes(this.currentQuestionNumber)) ||
+            !this.answeredQuestions.includes(this.currentQuestionNumber) ||
             this.type == Exercise.Type.Exam
         ) {
             e.currentTarget.classList.toggle("selected");
@@ -298,7 +305,6 @@ class Exercise {
     }
 
     handleTrainingConfirmation(e) {
-        console.log(this.currentQuestionNumber);
         if (!this.isSolutionMode) {
             if (this.currentQuestionNumber == this.questionIds.length) {
                 e.currentTarget.innerText = "Training beenden";
@@ -327,13 +333,15 @@ class Exercise {
 
     async handleExamConfirmation(e) {
         if (this.areAllQuestionsAnswered()) {
-            this.handleExerciseFinish();
+            this.postExerciseFinishedRequest();
+            this.isExamEvaluationMode = true;
+            // this.handleExerciseFinish();
             return;
         }
 
         this.markQuestionAsAnswered(this.currentQuestionNumber);
         if (this.areAllQuestionsAnswered()) {
-            e.currentTarget.innerText = "Prüfung beenden";
+            e.currentTarget.innerText = "Prüfung auswerten";
         }
 
         if (!this.isLastQuestion()) {
@@ -343,7 +351,6 @@ class Exercise {
     }
 
     handleExerciseFinish() {
-        console.log("finisdhisdh");
         this.cleanup();
         this.postExerciseFinishedRequest();
     }
