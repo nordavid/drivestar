@@ -81,7 +81,7 @@ function registerTooltips() {
             const tooltipW = this.tooltipbox.offsetWidth;
             const tooltipH = this.tooltipbox.offsetHeight;
             const buffer = 10;
-            const margin = 24;
+            const margin = 32;
 
             // check if on the right of the cursor is enough space for the tooltip
             // otherwise position to the left

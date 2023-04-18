@@ -78,6 +78,14 @@ h6 {
     display: none !important;
 }
 
+.semibold {
+    font-weight: 600;
+}
+
+.bold {
+    font-weight: 700;
+}
+
 .blur {
     filter: blur(90px);
 }
@@ -89,6 +97,8 @@ h6 {
 
 .tooltip {
     position: absolute;
+    top: -500px;
+    left: -500px;
     width: 240px;
     padding: 16px 10px;
     border-radius: 4px;
@@ -119,6 +129,7 @@ h6 {
     flex-direction: column;
     z-index: 9999;
     pointer-events: none;
+    overflow: hidden;
 }
 
 .toast {

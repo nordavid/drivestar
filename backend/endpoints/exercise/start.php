@@ -2,8 +2,14 @@
 function startExerciseHandler($type, $duration, $question_count, $categories)
 {
     $userId = get_user_id();
+    $questionIds = null;
 
-    $questionIds = getRandomQuestionIds($categories, $question_count);
+    if ($type == "Exam") {
+        $questionIds = getExamQuestionIds();
+    } else {
+        $questionIds = getRandomQuestionIds($categories, $question_count);
+    }
+
     if (count($questionIds) <= 0) {
         die(errorMsg("Fehler beim Starten der Übung"));
     }
@@ -43,6 +49,24 @@ function insertExercise($userId, $type, $duration): string | false
     }
 }
 
+function insertUserAnswers($exerciseId, $questionIds)
+{
+    global $conn;
+
+    try {
+        $stmt = $conn->prepare("INSERT INTO user_answer (exercise_id, question_id) VALUES (:exerciseId, :questionId)");
+
+        foreach ($questionIds as $questionId) {
+            $stmt->bindParam(':exerciseId', $exerciseId, PDO::PARAM_INT);
+            $stmt->bindParam(':questionId', $questionId, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+    } catch (PDOException $e) {
+        return false;
+    }
+    return true;
+}
+
 function getRandomQuestionIds($categories, $question_count): array | false
 {
     global $conn;
@@ -75,20 +99,42 @@ function getRandomQuestionIds($categories, $question_count): array | false
     return false;
 }
 
-function insertUserAnswers($exerciseId, $questionIds)
+function getExamQuestionIds(): array | false
 {
     global $conn;
 
     try {
-        $stmt = $conn->prepare("INSERT INTO user_answer (exercise_id, question_id) VALUES (:exerciseId, :questionId)");
+        $stmt = $conn->prepare(
+            "SELECT id
+            FROM (
+                SELECT q.id
+                FROM question q
+                JOIN category c ON q.category_id = c.id
+                WHERE c.section = 'Grundstoff'
+                ORDER BY RAND()
+                LIMIT 20
+            ) grundstoff
+            
+            UNION ALL
+            
+            SELECT id
+            FROM (
+                SELECT q.id
+                FROM question q
+                JOIN category c ON q.category_id = c.id
+                WHERE c.section = 'Zusatzfragen'
+                ORDER BY RAND()
+                LIMIT 10
+            ) zusatzfragen;"
+        );
+        $stmt->execute();
 
-        foreach ($questionIds as $questionId) {
-            $stmt->bindParam(':exerciseId', $exerciseId, PDO::PARAM_INT);
-            $stmt->bindParam(':questionId', $questionId, PDO::PARAM_INT);
-            $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $questionIds = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            return $questionIds;
         }
     } catch (PDOException $e) {
         return false;
     }
-    return true;
+    return false;
 }

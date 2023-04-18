@@ -15,6 +15,7 @@
         <script src="./js/dashboard.js"></script>
         <script src="./js/dashboardQuestion.js"></script>
         <script src="./js/dashboardTraining.js"></script>
+        <script src="./js/dashboardExam.js"></script>
         <script src="./js/exercise.js"></script>
     </head>
     <body class="blur">
@@ -269,7 +270,77 @@
                     </div>
                 </div>
             </section>
-            <section class="dashboard-section" id="exam"></section>
+            <section class="dashboard-section" id="exam">
+                <h1>Prüfungssimulation</h1>
+                <div class="exam-summary">
+                    <div class="summary-section">
+                        <div class="summary-section-header">
+                            <img src="./img/icons/line/question.svg" alt="Fragen Icon" />
+                            <h2>Zusammenfassung</h2>
+                        </div>
+                        <div class="question-summary">
+                            <div>
+                                <h3>Grundstoff</h3>
+                                <p>20 Fragen</p>
+                            </div>
+                            <div>
+                                <h3>Zusatzfragen</h3>
+                                <p>10 Fragen</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="summary-section">
+                        <div class="summary-section-header">
+                            <img src="./img/icons/line/timer.svg" alt="Timer Icon" />
+                            <h2>Zeitbegrenzung</h2>
+                        </div>
+                        <p>Maximal <span class="semibold">60</span> Minuten</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="summary-section">
+                        <div class="summary-section-header">
+                            <img src="./img/icons/line/faultpoints.svg" alt="Fehlerpunkte Icon" />
+                            <h2>Durchfallkriterien</h2>
+                        </div>
+                        <p>Mehr als <span class="semibold">10</span> Fehlerpunkte</p>
+                        <p>Zwei Fragen mit <span class="semibold">5</span> Fehlerpunkten</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div id="start-exam-button">
+                        <div><img src="./img/icons/line/start.svg" alt="Start Icon" /></div>
+                        Prüfung starten
+                    </div>
+                </div>
+                <div class="info-container">
+                    <h2>Informationen</h2>
+                    <h3>Was wird abgefragt?</h3>
+                    <p>
+                        Für die Führerscheinklasse B werden 20 Fragen aus dem Grundstoff und 10
+                        Zusatzfragen abgefragt.
+                    </p>
+                    <h3>Wann habe ich bestanden?</h3>
+                    <p>
+                        Du hast die Theorieprüfung bestanden, wenn du alle Fragen beantwortet und
+                        maximal 10 Fehlerpunkte gesammelt hast. Hast du 2 Fragen mit jeweils 5
+                        Fehlerpunkten falsch beantwortet, bist du leider auch durchgefallen.
+                    </p>
+                    <h3>Wie lange habe ich zeit?</h3>
+                    <p>
+                        Für die Theorieprüfung hast Du 60 Minuten Zeit und kannst jederzeit früher
+                        abgeben.
+                    </p>
+                    <h3>Kann ich die Prüfung wiederholen?</h3>
+                    <p>
+                        Die Theorieprüfung kann nach einer Wartezeit von 2 Wochen wiederholt werden.
+                        Dies kann beliebig oft getan werden, wobei die Gebühren immer gleich
+                        bleiben.
+                    </p>
+                    <p class="semibold">
+                        Wenn Du bereit bist klicke auf “Prüfung starten”! Viel Erfolg.
+                    </p>
+                </div>
+            </section>
             <section class="dashboard-section" id="admin"></section>
             <section class="dashboard-section" id="settings"></section>
 
