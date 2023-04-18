@@ -62,9 +62,9 @@ class Exercise {
                 <div data-id="${question.id}" class="save-question-button">
                     <img
                         src="./img/icons/line/save.svg"
-                        alt="Markieren Icon"
+                        alt="Speichern Icon"
                     />
-                    <h3>Frage markieren</h3>
+                    <h3>Frage speichern</h3>
                 </div>
             </div>
         </div>
@@ -159,7 +159,7 @@ class Exercise {
         }
     }
 
-    markQuestionAsAnswered(questionNumber) {
+    async markQuestionAsAnswered(questionNumber) {
         if (!this.answeredQuestions.includes(questionNumber)) {
             this.answeredQuestions.push(questionNumber);
             this.updateAnsweredQuestionCount();
@@ -190,9 +190,11 @@ class Exercise {
                 );
             }
 
-            postRequest("exercise/useranswer", formData, true)
-                .then((response) => response.text())
-                .then((data) => console.log(data));
+            try {
+                await postRequest("exercise/useranswer", formData, true);
+            } catch (error) {
+                console.log(error.message);
+            }
         }
     }
 
@@ -239,8 +241,12 @@ class Exercise {
             const formData = new FormData();
             formData.append("id", e.currentTarget.dataset.id);
 
-            const response = await postRequest("question/bookmark", formData, true);
-            const data = await response.json();
+            try {
+                const data = await postRequest("question/bookmark", formData, true);
+                console.log(data);
+            } catch (error) {
+                console.log(error.message);
+            }
         });
     }
 
@@ -309,20 +315,16 @@ class Exercise {
 
     // Util methods
     async fetchCurrentQuestion() {
-        const response = await getRequest(
-            "question",
-            { id: this.questionIds[this.currentQuestionNumber - 1] },
-            true
-        );
-
-        const data = await response.json();
-        if (response.ok) {
-            if (!data.error) {
-                this.currentQuestion = data.payload;
-                this.displayQuestion(data.payload);
-            }
-        } else {
-            console.log(data.message);
+        try {
+            const question = await getRequest(
+                "question",
+                { id: this.questionIds[this.currentQuestionNumber - 1] },
+                true
+            );
+            this.currentQuestion = question;
+            this.displayQuestion(question);
+        } catch (error) {
+            console.log(error.message);
         }
     }
 

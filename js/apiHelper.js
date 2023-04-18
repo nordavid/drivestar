@@ -1,14 +1,8 @@
 async function postRequest(endpoint, formData, authNeeded = false) {
-    let headers = {};
+    const jwtToken = authNeeded ? localStorage.getItem("jwtToken") : null;
+    const headers = jwtToken ? { Authorization: `Bearer ${jwtToken}` } : {};
 
-    if (authNeeded) {
-        const jwtToken = localStorage.getItem("jwtToken");
-        headers = {
-            Authorization: `Bearer ${jwtToken}`,
-        };
-    }
-
-    const request = new Request("./api/" + endpoint, {
+    const request = new Request(`./api/${endpoint}`, {
         method: "POST",
         body: formData,
         headers: headers,
@@ -16,30 +10,36 @@ async function postRequest(endpoint, formData, authNeeded = false) {
 
     try {
         const response = await fetch(request);
-        return response;
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Unbekannter Fehler");
+        }
+
+        return data.payload || data.message;
     } catch (error) {
         console.log(error);
+        throw error;
     }
 }
 
 async function getRequest(endpoint, params, authNeeded = false) {
-    let headers = {};
+    const jwtToken = authNeeded ? localStorage.getItem("jwtToken") : null;
+    const headers = jwtToken ? { Authorization: `Bearer ${jwtToken}` } : {};
 
-    if (authNeeded) {
-        const jwtToken = localStorage.getItem("jwtToken");
-        headers = {
-            Authorization: `Bearer ${jwtToken}`,
-        };
-    }
-    let queryString = "";
-    for (const [key, value] of Object.entries(params)) {
-        queryString += `${key}=${value}&`;
-    }
+    const queryString = new URLSearchParams(params).toString();
 
     try {
         const response = await fetch(`./api/${endpoint}?${queryString}`, { headers });
-        return response;
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || "Unbekannter Fehler");
+        }
+
+        return data.payload || data.message;
     } catch (error) {
-        console.log(error);
+        console.log(error + " (" + endpoint + ")");
+        throw error;
     }
 }

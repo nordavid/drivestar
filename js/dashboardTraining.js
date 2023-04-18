@@ -141,15 +141,11 @@ function showSliderTooltip(slider, tooltip, unitname = "") {
 }
 
 async function loadTrainingCategories(filter) {
-    const response = await getRequest("category", { filter: filter }, true);
-
-    const data = await response.json();
-    if (response.ok) {
-        if (!data.error) {
-            showTrainingCategories(data.payload);
-        }
-    } else {
-        console.log(data.message);
+    try {
+        const categories = await getRequest("category", { filter: filter }, true);
+        showTrainingCategories(categories);
+    } catch (error) {
+        console.log(error.message);
     }
 }
 
@@ -189,15 +185,13 @@ async function startTraining() {
         trainingSettings.append("categories[]", selectedCatsIds[i]);
     }
 
-    const response = await postRequest("exercise/start", trainingSettings, true);
-    const data = await response.json();
-
-    new Exercise(
-        Exercise.Type.Exam,
-        data.payload.exerciseId,
-        timeSlider.value * 60,
-        data.payload.questionIds
-    );
+    try {
+        const data = await postRequest("exercise/start", trainingSettings, true);
+        console.log(data);
+        new Exercise(Exercise.Type.Exam, data.exerciseId, timeSlider.value * 60, data.questionIds);
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 // util

@@ -214,7 +214,7 @@
                     </div>
                     <div data-filter="Bookmarks" class="cat-button">
                         <div class="radio-indicator"></div>
-                        <h2>Markierte Fragen</h2>
+                        <h2>Gespeicherte Fragen</h2>
                     </div>
                 </div>
                 <div id="subcategory-select">
@@ -222,14 +222,14 @@
                         <img src="./img/icons/line/categories.svg" alt="Kategorien Icon" />
                         <h1>Kategorien</h1>
                     </div>
-                    <div class="subcategory-container"></div>
+                    <div class="subcategory-container"><!-- load categories --></div>
                 </div>
                 <div id="question-container">
                     <div class="header">
                         <img src="./img/icons/line/question.svg" alt="Fragen Icon" />
                         <h1>Fragen</h1>
                     </div>
-                    <div id="question-list"></div>
+                    <div id="question-list"><!-- load questions --></div>
                 </div>
             </section>
 
@@ -252,7 +252,7 @@
                         </div>
                         <div data-filter="Bookmarks" class="maincat-item">
                             <div class="radio-indicator"></div>
-                            <h3>Markierte Fragen</h3>
+                            <h3>Gespeicherte Fragen</h3>
                         </div>
                     </div>
                     <div class="divider"></div>
@@ -297,7 +297,9 @@
                             <a id="unselect-all-subcats" href="#">Alle deaktivieren</a>
                         </div>
                     </div>
-                    <div id="training-subcat-container" class="subcats-container"></div>
+                    <div id="training-subcat-container" class="subcats-container">
+                        <!-- load categories -->
+                    </div>
                 </div>
             </section>
             <section class="dashboard-section" id="exam"></section>
@@ -328,34 +330,13 @@
                                 <p>Bearbeitet</p>
                             </div>
                         </div>
-                        <div id="question-id-selector"></div>
+                        <div id="question-id-selector"><!-- load selector buttons --></div>
                     </div>
                     <div id="exercise-left">
-                        <div id="exercise-question-container">
-                            <div id="exercise-question" class="saved">
-                                <div class="header">
-                                    <h1>Frage: 0.0.00-00</h1>
-                                    <h3>Fehlerpunkte: 0</h3>
-                                </div>
-                                <div id="exercise-question-content" class="question-content">
-                                    <img src="./uploads/questionimgs/1.1.02-032.jpg" alt="" />
-                                    <p>
-                                        Sie fahren mit Tagfahrlicht in einen so gekennzeichneten
-                                        beleuchteten Tunnel. Wie verhalten Sie sich?
-                                    </p>
-                                    <div class="save-question-button">
-                                        <img
-                                            src="./img/icons/line/save.svg"
-                                            alt="Gespeichert Icon"
-                                        />
-                                        <h3>Frage markieren</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div id="exercise-question-container"><!-- load question content --></div>
                     </div>
                     <div id="exercise-right">
-                        <div id="exercise-answers-container"></div>
+                        <div id="exercise-answers-container"><!-- load answer buttons --></div>
                         <div id="confirm-exercise-answer" class="confirm-answer-btn">
                             Lösung anzeigen
                         </div>

@@ -13,7 +13,7 @@ function create_token(array $userObj, int $expiresIn = 604800): string
     $base64UrlHeader = base64url_encode($header);
     $base64UrlPayload = base64url_encode($payload);
 
-    $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, getenv("SECRET_KEY"), true);
+    $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, SECRET_KEY, true);
     $encodedSignature = base64url_encode($signature);
 
     $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $encodedSignature;
