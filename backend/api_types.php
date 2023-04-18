@@ -20,7 +20,7 @@ $endpoints = [
         'handler' => 'registerHandler',
         'method' => HttpRequestMethods::POST,
         'access' => AccessTypes::PUBLIC,
-        'params' => ['username', 'email', 'password']
+        'params' => ['username', 'email', 'password', 'upload_profilepicture']
     ],
     'account/login' => [
         'handler' => 'loginHandler',

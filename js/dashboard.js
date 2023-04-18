@@ -1,9 +1,14 @@
 window.onload = function () {
     initDashboard();
+
+    setTimeout(function () {
+        document.body.classList.remove("blur");
+        document.body.classList.add("noblur");
+    }, 500);
 };
 
 async function initDashboard() {
-    redirectIfNotAuthenticated();
+    await redirectIfNotAuthenticated();
 
     if (await isAdmin()) {
         document.querySelector(".nav-admin").classList.remove("hidden");

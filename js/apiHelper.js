@@ -13,12 +13,12 @@ async function postRequest(endpoint, formData, authNeeded = false) {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || "Unbekannter Fehler");
+            throw new Error(data.message || "Unbekannter Fehler");
         }
 
         return data.payload || data.message;
     } catch (error) {
-        console.log(error);
+        console.log(error + " [Endpoint: " + endpoint + "]");
         throw error;
     }
 }
@@ -39,7 +39,7 @@ async function getRequest(endpoint, params, authNeeded = false) {
 
         return data.payload || data.message;
     } catch (error) {
-        console.log(error + " (" + endpoint + ")");
+        console.log(error + " [Endpoint: " + endpoint + "]");
         throw error;
     }
 }

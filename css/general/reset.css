@@ -78,6 +78,36 @@ h6 {
     display: none !important;
 }
 
+.blur {
+    filter: blur(90px);
+}
+
+.noblur {
+    filter: blur(0px);
+    transition: filter 0.5s ease-in-out;
+}
+
+.tooltip {
+    position: absolute;
+    width: 240px;
+    padding: 16px 10px;
+    border-radius: 4px;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 150%;
+    text-align: center;
+    color: var(--black);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.31);
+    overflow: hidden;
+    z-index: 100;
+}
+
 #toast-container {
     position: fixed;
     top: 0;
@@ -88,6 +118,7 @@ h6 {
     align-items: center;
     flex-direction: column;
     z-index: 9999;
+    pointer-events: none;
 }
 
 .toast {
