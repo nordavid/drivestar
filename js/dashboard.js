@@ -10,6 +10,7 @@ async function initDashboard() {
     }
 
     initNavigation();
+    registerTooltips();
     loadDashboardContent();
 }
 
@@ -49,7 +50,7 @@ function loadDashboardSection(section) {
 
     switch (section) {
         case "dashboard":
-            // initDashboard();
+            loadDashboardContent();
             break;
 
         case "questions":
@@ -141,7 +142,7 @@ async function loadExerciseStats() {
 async function loadCategoryStats() {
     try {
         const categories = await getRequest("category/stats", {}, true);
-        console.log(categories);
+
         const categoryStatsContainer = document.getElementById("category-progress-container");
         categoryStatsContainer.innerHTML = "";
         categories.forEach((cat) => {
