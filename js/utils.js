@@ -49,3 +49,60 @@ function formatDate(dateString) {
 
     return `${day}.${month}.${year}`;
 }
+
+function registerTooltips() {
+    const elementsWithTooltip = document.querySelectorAll("[data-tooltip]");
+
+    elementsWithTooltip.forEach((element) => {
+        element.addEventListener("mouseover", handleMouseOver);
+    });
+
+    function handleMouseOver() {
+        const tooltipbox = createTooltipBox(this);
+
+        handleMouseMove.tooltipbox = tooltipbox;
+        this.addEventListener("mousemove", handleMouseMove);
+
+        handleMouseLeave.tooltipbox = tooltipbox;
+        handleMouseLeave.element = this;
+        this.addEventListener("mouseleave", handleMouseLeave);
+    }
+
+    const handleMouseLeave = {
+        handleEvent() {
+            this.tooltipbox.remove();
+            this.element.removeEventListener("mousemove", handleMouseMove);
+            this.element.removeEventListener("mouseleave", handleMouseLeave);
+        },
+    };
+
+    const handleMouseMove = {
+        handleEvent(e) {
+            const tooltipW = this.tooltipbox.offsetWidth;
+            const tooltipH = this.tooltipbox.offsetHeight;
+            const buffer = 10;
+            const margin = 24;
+
+            // check if on the right of the cursor is enough space for the tooltip
+            // otherwise position to the left
+            if (window.innerWidth - e.clientX < tooltipW + margin) {
+                this.tooltipbox.style.left = e.clientX - tooltipW + "px";
+            } else {
+                this.tooltipbox.style.left = e.clientX + buffer + "px";
+            }
+
+            // position tooltip vertically
+            this.tooltipbox.style.top = e.clientY - tooltipH - buffer + "px";
+        },
+    };
+
+    function createTooltipBox(el) {
+        let tooltip = document.createElement("div");
+        tooltip.innerText = el.dataset.tooltip;
+        tooltip.classList.add("tooltip");
+
+        document.body.appendChild(tooltip);
+
+        return tooltip;
+    }
+}
