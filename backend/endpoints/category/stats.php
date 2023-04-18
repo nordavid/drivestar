@@ -7,9 +7,9 @@ function getCategoryStatsHandler()
     try {
         $stmt = $conn->prepare(
             'SELECT 
-            c.title AS category_title, 
-            COUNT(q.id) AS total_question_count,
-            CAST(COALESCE(SUM(ua.is_correct), 0) AS INTEGER) AS correct_answer_count
+            c.title AS title, 
+            COUNT(q.id) AS total_questions_count,
+            CAST(COALESCE(SUM(ua.is_correct), 0) AS INTEGER) AS correct_answers_count
         FROM category c 
         JOIN question q ON q.category_id = c.id 
         LEFT JOIN (

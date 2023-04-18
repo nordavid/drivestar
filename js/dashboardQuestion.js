@@ -86,7 +86,9 @@ function addCategories(categories) {
     emptyElement(categoryContainer);
 
     if (categories.length == 0) {
-        categoryContainer.innerText = "Keine Kategorien gefunden";
+        showToast("Du hast noch keine Fragen gespeichert", "right");
+        loadCategories("Grundstoff");
+        selectedSection = "Grundstoff";
         return;
     }
 

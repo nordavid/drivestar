@@ -73,6 +73,7 @@ function addTrainingCategoryListeners() {
 function refreshCategories() {
     categoryItems = document.querySelectorAll(".subcat-item");
     addTrainingCategoryListeners();
+    onTrainingCategoryChange();
 }
 
 // Event handler functions
@@ -188,7 +189,12 @@ async function startTraining() {
     try {
         const data = await postRequest("exercise/start", trainingSettings, true);
         console.log(data);
-        new Exercise(Exercise.Type.Exam, data.exerciseId, timeSlider.value * 60, data.questionIds);
+        new Exercise(
+            Exercise.Type.Training,
+            data.exerciseId,
+            timeSlider.value * 60,
+            data.questionIds
+        );
     } catch (error) {
         console.log(error.message);
     }

@@ -84,10 +84,14 @@
 
         <header>
             <div id="profile-info">
-                <img src="./img/license_image_placeholder.svg" alt="Profilbild" />
+                <img
+                    class="profilepicture"
+                    src="./img/license_image_placeholder.svg"
+                    alt="Profilbild"
+                />
                 <div id="profile-name">
                     <p>Willkommen zurück</p>
-                    <p>Linda Sternschnuppe</p>
+                    <p><!-- load username --></p>
                 </div>
             </div>
         </header>
@@ -99,10 +103,10 @@
                         <h1>Gesamtfortschritt</h1>
                         <img src="./img/icons/line/progress.svg" alt="Fortschritt Icon" />
                     </div>
-                    <h2>30%</h2>
+                    <h2>0%</h2>
                     <div class="progress"><div class="bar"></div></div>
-                    <p><span id="correct-answers">214</span> Fragen richtig beantwortet</p>
-                    <p><span id="remaining-questions">830</span> noch zu beantworten</p>
+                    <p><span id="correct-answers">0</span> Fragen richtig beantwortet</p>
+                    <p><span id="remaining-questions">0</span> noch zu beantworten</p>
                 </div>
                 <div id="badges" class="w2 widget">
                     <div class="header">
@@ -138,23 +142,7 @@
                         <h2>Richtig beantwortet</h2>
                         <h2>Benötigte Zeit</h2>
                     </div>
-                    <div id="training-table-container">
-                        <div class="training">
-                            <p>00.00.0000</p>
-                            <p>0 von 0 Fragen</p>
-                            <p>0 Minuten</p>
-                        </div>
-                        <div class="training">
-                            <p>00.00.0000</p>
-                            <p>0 von 110 Fragen</p>
-                            <p>0 Minuten</p>
-                        </div>
-                        <div class="training perfect">
-                            <p>00.00.0000</p>
-                            <p>0 von 0 Fragen</p>
-                            <p>0 Minuten</p>
-                        </div>
-                    </div>
+                    <div id="training-table-container"><!-- load exercise stats --></div>
                 </div>
                 <div id="category-stats" class="w4 widget">
                     <div class="header">
