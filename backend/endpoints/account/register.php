@@ -3,7 +3,7 @@ require_once('./utils/input_validation.php');
 require_once('./utils/image_upload.php');
 require_once("./utils/jwt_util.php");
 
-function registerHandler($username, $email, $password)
+function registerHandler($username, $email, $password, $upload_profilepicture)
 {
     global $conn;
 
@@ -33,7 +33,9 @@ function registerHandler($username, $email, $password)
         $stmt->execute();
         $userId = $conn->lastInsertId();
 
-        upload_profilepicture($userId, "profilepicture_$userId");
+        if ($upload_profilepicture == "true") {
+            upload_profilepicture($userId, "profilepicture_$userId");
+        }
 
 
         // Registered successful and logged in

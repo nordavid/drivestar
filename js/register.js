@@ -1,7 +1,6 @@
 // Preview profile picture on license after selecting
 const inputProfilepicture = document.querySelector("#form-profilepicture");
 inputProfilepicture.addEventListener("change", () => {
-    console.log(inputProfilepicture);
     const uploadedFile = inputProfilepicture.files[0];
 
     document.querySelector("#license-image").src = URL.createObjectURL(uploadedFile);
@@ -51,7 +50,10 @@ const registerForm = document.querySelector("#register-form");
 registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(registerForm);
-    console.log(formData);
+
+    const fileInput = document.getElementById("form-profilepicture");
+    const file = fileInput.files[0];
+    formData.append("upload_profilepicture", file ? true : false);
 
     try {
         const jwt = await postRequest("account/register", formData, true);
@@ -59,6 +61,7 @@ registerForm.addEventListener("submit", async (e) => {
         window.location.href = "./dashboard.html";
     } catch (error) {
         console.log(error.message);
+        showToast(error.message);
     }
 });
 

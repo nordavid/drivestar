@@ -273,27 +273,6 @@ main section#dashboard.active {
     margin-left: 24px;
 }
 
-.tooltip {
-    position: absolute;
-    width: 240px;
-    padding: 16px 10px;
-    border-radius: 4px;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 150%;
-    text-align: center;
-    color: var(--black);
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.31);
-    overflow: hidden;
-    z-index: 100;
-}
-
 .widget#badges .badge img {
     width: 80px;
 }

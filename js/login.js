@@ -10,6 +10,7 @@ registerForm.addEventListener("submit", async (e) => {
         window.location.href = "./dashboard.html";
     } catch (error) {
         console.log(error.message);
+        showToast(error.message);
     }
 });
 
