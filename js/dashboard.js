@@ -119,8 +119,10 @@ async function loadExerciseStats() {
         const exerciseTable = document.getElementById("training-table-container");
         exerciseTable.innerHTML = "";
         exercises.forEach((exercise) => {
+            const perfect = exercise.correct_answers_count == exercise.total_questions_count;
+
             const exerciseEl = `
-                <div class="training">
+                <div class="training ${perfect ? "perfect" : ""}">
                     <p>${formatDate(exercise.date)}</p>
                     <p>${exercise.correct_answers_count} von ${
                 exercise.total_questions_count
