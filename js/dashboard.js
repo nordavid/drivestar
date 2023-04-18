@@ -67,6 +67,7 @@ function loadDashboardSection(section) {
             break;
 
         case "exam":
+            initExamSection();
             break;
 
         default:
