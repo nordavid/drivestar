@@ -24,6 +24,11 @@ class Exercise {
         this.quitBtn = document.getElementById("cancel-exercise-btn");
         this.answersContainer = document.getElementById("exercise-answers-container");
 
+        this.handleCancelExercise = this.handleCancelExercise.bind(this);
+        this.handleExerciseConfirmation = this.handleExerciseConfirmation.bind(this);
+        this.handleAnswerClicked = this.handleAnswerClicked.bind(this);
+        this.handleSelectorItemClick = this.handleSelectorItemClick.bind(this);
+
         this.init();
     }
 
@@ -39,17 +44,18 @@ class Exercise {
             this.initQuestionSelector();
         }
         this.exerciseWindow.style.display = "flex";
-        this.showRemainingTime(this.duration);
+        this.displayRemainingTime(this.duration);
         this.startTimer(this.duration, this.timeRunOut);
-        this.updateAnsweredQuestionCount();
-        this.fetchCurrentQuestion();
-
-        this.quitBtn.addEventListener("click", this.handleCancelExerciseClicked.bind(this));
-        this.confirmBtn.addEventListener("click", this.handleExerciseConfirmation.bind(this));
+        this.displayAnsweredQuestionCount();
+        this.navigateToQuestion(this.currentQuestionNumber);
+        this.quitBtn.addEventListener("click", this.handleCancelExercise);
+        this.confirmBtn.addEventListener("click", this.handleExerciseConfirmation);
     }
 
     // Methods that change view
     displayQuestion(question) {
+        this.removeBookmarkBtnEventListener();
+
         const questionEl = `
         <div id="exercise-question" class=" ${question.is_bookmarked ? "saved" : ""}">
             <div class="header">
@@ -72,10 +78,10 @@ class Exercise {
 
         this.questionContainer.innerHTML = questionEl;
         this.addBookmarkBtnEventListener();
-        this.displayAnswers(question.answers);
     }
 
     displayAnswers(answers) {
+        this.removeAnswerButtonsListener();
         this.answersContainer.innerHTML = "";
 
         answers.forEach((answer) => {
@@ -91,12 +97,7 @@ class Exercise {
             this.answersContainer.insertAdjacentHTML("beforeend", answerEl);
         });
 
-        this.answerButtons = document.querySelectorAll(
-            "#exercise-answers-container .exercise-answer"
-        );
-        this.answerButtons.forEach((item) =>
-            item.addEventListener("click", this.handleAnswerClicked.bind(this))
-        );
+        this.addAnswerButtonsListener();
 
         // display previously selected answer options
         if (this.currentQuestionNumber in this.answerDetails) {
@@ -108,7 +109,7 @@ class Exercise {
         }
     }
 
-    updateAnsweredQuestionCount() {
+    displayAnsweredQuestionCount() {
         if (this.type == Exercise.Type.Training) {
             document.getElementById("exercise-question-number").textContent =
                 this.answeredQuestions.length + 1 + "/" + this.questionIds.length;
@@ -118,7 +119,7 @@ class Exercise {
         }
     }
 
-    showSolution() {
+    displaySolution() {
         this.isSolutionMode = true;
 
         for (let i = 0; i < this.currentQuestion.answers.length; i++) {
@@ -130,7 +131,7 @@ class Exercise {
         }
     }
 
-    showRemainingTime(timer) {
+    displayRemainingTime(timer) {
         var minutes, seconds;
 
         minutes = parseInt(timer / 60, 10);
@@ -143,26 +144,23 @@ class Exercise {
     }
 
     // Question navigation methods
-    jumpToQuestion(number) {
+    async navigateToQuestion(number) {
         this.currentQuestionNumber = number;
-        this.fetchCurrentQuestion();
-        if (this.type == Exercise.Type.Exam) {
-            this.setActiveQuestion(this.currentQuestionNumber);
-        }
-    }
+        this.currentQuestion = await this.fetchCurrentQuestion();
+        this.displayQuestion(this.currentQuestion);
+        this.displayAnswers(this.currentQuestion.answers);
 
-    goToNextQuestion() {
-        this.currentQuestionNumber++;
-        this.fetchCurrentQuestion();
         if (this.type == Exercise.Type.Exam) {
-            this.setActiveQuestion(this.currentQuestionNumber);
+            this.setQuestionSelectorItemActive(this.currentQuestionNumber);
         }
     }
 
     async markQuestionAsAnswered(questionNumber) {
-        if (!this.answeredQuestions.includes(questionNumber)) {
-            this.answeredQuestions.push(questionNumber);
-            this.updateAnsweredQuestionCount();
+        if (!this.answeredQuestions.includes(questionNumber) || this.type == Exercise.Type.Exam) {
+            if (!this.answeredQuestions.includes(questionNumber)) {
+                this.answeredQuestions.push(questionNumber);
+                this.displayAnsweredQuestionCount();
+            }
 
             this.answerDetails[questionNumber] = [];
             this.answerButtons.forEach((item, index) => {
@@ -172,29 +170,8 @@ class Exercise {
                 });
             });
 
-            if (this.type == Exercise.Type.Exam) {
-                const selectorItem = document.querySelector(
-                    `.selector-item[data-id="${questionNumber}"]`
-                );
-                selectorItem.classList.add("done");
-            }
-
-            const formData = new FormData();
-            formData.append("exercise_id", this.id);
-            formData.append("question_id", this.questionIds[questionNumber - 1]);
-
-            for (let i = 0; i < this.answerDetails[questionNumber].length; i++) {
-                formData.append(
-                    "user_answers[]",
-                    JSON.stringify(this.answerDetails[questionNumber][i])
-                );
-            }
-
-            try {
-                await postRequest("exercise/useranswer", formData, true);
-            } catch (error) {
-                console.log(error.message);
-            }
+            this.setQuestionSelectorItemDone(questionNumber);
+            this.updateUserAnswerRequest(questionNumber);
         }
     }
 
@@ -214,7 +191,16 @@ class Exercise {
         this.addQuestionSelectorListeners();
     }
 
-    setActiveQuestion(questionNumber) {
+    setQuestionSelectorItemDone(questionNumber) {
+        if (this.type == Exercise.Type.Exam) {
+            const selectorItem = document.querySelector(
+                `.selector-item[data-id="${questionNumber}"]`
+            );
+            selectorItem.classList.add("done");
+        }
+    }
+
+    setQuestionSelectorItemActive(questionNumber) {
         const elements = document.querySelectorAll("#question-id-selector .selector-item");
         elements.forEach((item) => item.classList.remove("current"));
 
@@ -222,52 +208,85 @@ class Exercise {
         selectorItem.classList.add("current");
     }
 
+    addAnswerButtonsListener() {
+        this.answerButtons = document.querySelectorAll(
+            "#exercise-answers-container .exercise-answer"
+        );
+        this.answerButtons.forEach((item) =>
+            item.addEventListener("click", this.handleAnswerClicked)
+        );
+    }
+
+    removeAnswerButtonsListener() {
+        this.answerButtons = document.querySelectorAll(
+            "#exercise-answers-container .exercise-answer"
+        );
+        this.answerButtons.forEach((item) =>
+            item.removeEventListener("click", this.handleAnswerClicked)
+        );
+    }
+
     // Event listeners
     addQuestionSelectorListeners() {
         const elements = document.querySelectorAll("#question-id-selector .selector-item");
-        elements.forEach((item) =>
-            item.addEventListener("click", this.handleSelectorItemClick.bind(this))
-        );
+        elements.forEach((item) => item.addEventListener("click", this.handleSelectorItemClick));
+    }
+
+    removeQuestionSelectorListeners() {
+        const elements = document.querySelectorAll("#question-id-selector .selector-item");
+        elements.forEach((item) => item.removeEventListener("click", this.handleSelectorItemClick));
     }
 
     addBookmarkBtnEventListener() {
         const bookMarkBtn = document.querySelector(
             "#exercise-question-content .save-question-button"
         );
+        bookMarkBtn.addEventListener("click", this.handleBookmarkToggle);
+    }
 
-        bookMarkBtn.addEventListener("click", async (e) => {
-            e.currentTarget.closest("#exercise-question").classList.toggle("saved");
-
-            const formData = new FormData();
-            formData.append("id", e.currentTarget.dataset.id);
-
-            try {
-                const data = await postRequest("question/bookmark", formData, true);
-                console.log(data);
-            } catch (error) {
-                console.log(error.message);
-            }
-        });
+    removeBookmarkBtnEventListener() {
+        const bookMarkBtn = document.querySelector(
+            "#exercise-question-content .save-question-button"
+        );
+        bookMarkBtn?.removeEventListener("click", this.handleBookmarkToggle);
     }
 
     // Event handler methods
-    handleCancelExerciseClicked() {
+    handleCancelExercise() {
+        this.cleanup();
         this.exerciseWindow.style.display = "none";
-        clearTimeout(this.timer);
     }
 
     handleAnswerClicked(e) {
-        if (!this.isSolutionMode && !this.answeredQuestions.includes(this.currentQuestionNumber)) {
+        if (
+            (!this.isSolutionMode &&
+                !this.answeredQuestions.includes(this.currentQuestionNumber)) ||
+            this.type == Exercise.Type.Exam
+        ) {
             e.currentTarget.classList.toggle("selected");
         }
     }
 
     handleSelectorItemClick(e) {
-        this.jumpToQuestion(parseInt(e.currentTarget.dataset.id));
+        this.navigateToQuestion(parseInt(e.currentTarget.dataset.id));
 
         const elements = document.querySelectorAll("#question-id-selector .selector-item");
         elements.forEach((item) => item.classList.remove("current"));
         e.currentTarget.classList.add("current");
+    }
+
+    async handleBookmarkToggle(e) {
+        e.currentTarget.closest("#exercise-question").classList.toggle("saved");
+
+        const formData = new FormData();
+        formData.append("id", e.currentTarget.dataset.id);
+
+        try {
+            const data = await postRequest("question/bookmark", formData, true);
+            console.log(data);
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     handleExerciseConfirmation(e) {
@@ -279,27 +298,36 @@ class Exercise {
     }
 
     handleTrainingConfirmation(e) {
+        console.log(this.currentQuestionNumber);
         if (!this.isSolutionMode) {
-            e.currentTarget.innerText = "Nächste Frage";
-            this.showSolution();
+            if (this.currentQuestionNumber == this.questionIds.length) {
+                e.currentTarget.innerText = "Training beenden";
+            } else {
+                e.currentTarget.innerText = "Nächste Frage";
+            }
+
+            this.displaySolution();
             return;
         }
 
         // solution mode active
         this.isSolutionMode = false;
+
         e.currentTarget.innerText = "Lösung anzeigen";
 
         if (this.isLastQuestion()) {
-            console.log("raus da");
+            this.handleExerciseFinish();
+            this.exerciseWindow.style.display = "none";
         } else {
             this.markQuestionAsAnswered(this.currentQuestionNumber);
-            this.goToNextQuestion();
+            this.currentQuestionNumber++;
+            this.navigateToQuestion(this.currentQuestionNumber);
         }
     }
 
-    handleExamConfirmation(e) {
+    async handleExamConfirmation(e) {
         if (this.areAllQuestionsAnswered()) {
-            console.log("raus da");
+            this.handleExerciseFinish();
             return;
         }
 
@@ -309,11 +337,57 @@ class Exercise {
         }
 
         if (!this.isLastQuestion()) {
-            this.goToNextQuestion();
+            this.currentQuestionNumber++;
+            this.navigateToQuestion(this.currentQuestionNumber);
         }
     }
 
+    handleExerciseFinish() {
+        console.log("finisdhisdh");
+        this.cleanup();
+        this.postExerciseFinishedRequest();
+    }
+
+    cleanup() {
+        clearTimeout(this.timer);
+        this.quitBtn.removeEventListener("click", this.handleCancelExercise);
+        this.confirmBtn.removeEventListener("click", this.handleExerciseConfirmation);
+
+        this.removeQuestionSelectorListeners();
+    }
+
     // Util methods
+    async updateUserAnswerRequest(questionNumber) {
+        const formData = new FormData();
+        formData.append("exercise_id", this.id);
+        formData.append("question_id", this.questionIds[questionNumber - 1]);
+
+        for (let i = 0; i < this.answerDetails[questionNumber].length; i++) {
+            formData.append(
+                "user_answers[]",
+                JSON.stringify(this.answerDetails[questionNumber][i])
+            );
+        }
+
+        try {
+            await postRequest("exercise/useranswer", formData, true);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    async postExerciseFinishedRequest() {
+        const formData = new FormData();
+        formData.append("id", this.id);
+
+        try {
+            const response = await postRequest("exercise/finish", formData, true);
+            console.log(response);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     async fetchCurrentQuestion() {
         try {
             const question = await getRequest(
@@ -321,8 +395,7 @@ class Exercise {
                 { id: this.questionIds[this.currentQuestionNumber - 1] },
                 true
             );
-            this.currentQuestion = question;
-            this.displayQuestion(question);
+            return question;
         } catch (error) {
             console.log(error.message);
         }
@@ -338,7 +411,7 @@ class Exercise {
 
     startTimer(duration, callback) {
         var timer = duration;
-        var boundFunc = this.showRemainingTime.bind(this);
+        var boundFunc = this.displayRemainingTime.bind(this);
 
         this.timer = setInterval(function () {
             boundFunc(timer);
