@@ -32,9 +32,12 @@ function addBookmarkBtnEventListeners() {
             const formData = new FormData();
             formData.append("id", e.currentTarget.dataset.id);
 
-            const response = await postRequest("question/bookmark", formData, true);
-            const data = await response.json();
-            console.log(data);
+            try {
+                const data = await postRequest("question/bookmark", formData, true);
+                console.log(data);
+            } catch (error) {
+                console.log(error.message);
+            }
         })
     );
 }
@@ -57,32 +60,24 @@ function toggleCategory(categoryItems, currentEl) {
 }
 
 async function loadCategories(filter) {
-    const response = await getRequest("category", { filter: filter }, true);
-
-    const data = await response.json();
-    if (response.ok) {
-        if (!data.error) {
-            addCategories(data.payload);
-        }
-    } else {
-        console.log(data.message);
+    try {
+        const categories = await getRequest("category", { filter: filter }, true);
+        addCategories(categories);
+    } catch (error) {
+        console.log(error.message);
     }
 }
 
 async function loadQuestions(categoryId, bookmarked) {
-    const response = await getRequest(
-        "question/category",
-        { id: categoryId, bookmarked: bookmarked },
-        true
-    );
-
-    const data = await response.json();
-    if (response.ok) {
-        if (!data.error) {
-            addQuestions(data.payload);
-        }
-    } else {
-        console.log(data.message);
+    try {
+        const questions = await getRequest(
+            "question/category",
+            { id: categoryId, bookmarked: bookmarked },
+            true
+        );
+        addQuestions(questions);
+    } catch (error) {
+        console.log(error.message);
     }
 }
 
@@ -134,7 +129,7 @@ function addQuestions(questions) {
                 <p>${question.question}</p>
                 <div data-id="${question.id}" class="save-question-button">
                     <img src="./img/icons/line/save.svg" alt="Gespeichert Icon" />
-                    <h3>Frage markieren</h3>
+                    <h3>Frage speichern</h3>
                 </div>
             </div>
             ${

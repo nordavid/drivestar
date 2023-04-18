@@ -1,12 +1,8 @@
 async function isAdmin() {
-    const response = await getRequest("account/user", {}, true);
-    const data = await response.json();
-
-    if (response.ok) {
-        if (!data.error) {
-            return data.payload.is_admin;
-        }
-    } else {
+    try {
+        const user = await getRequest("account/user", {}, true);
+        return user.is_admin;
+    } catch (error) {
         return false;
     }
 }
