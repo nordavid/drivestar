@@ -8,11 +8,7 @@ async function handleExamStart() {
     formData.append("type", "Exam");
     formData.append("duration", 60 * 60);
     formData.append("question_count", 30);
-
-    const selectedCatsIds = [1, 2];
-    for (let i = 0; i < selectedCatsIds.length; i++) {
-        formData.append("categories[]", selectedCatsIds[i]);
-    }
+    formData.append("categories[]", null);
 
     try {
         const data = await postRequest("exercise/start", formData, true);
