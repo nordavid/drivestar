@@ -17,7 +17,8 @@ function getExerciseStatsHandler()
             LEFT JOIN user_answer ON exercise.id = user_answer.exercise_id 
             WHERE exercise.user_id = :userId AND exercise.accomplished_at IS NOT NULL
             GROUP BY exercise.id
-            ORDER BY exercise.created_at DESC;'
+            ORDER BY exercise.created_at DESC
+            LIMIT 6;'
         );
         $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
         $stmt->execute();
