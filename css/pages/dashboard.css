@@ -1096,6 +1096,16 @@ main section#exam .info-container p:last-of-type {
     margin-left: 40px;
 }
 
+#exercise-container #exercise-header #exercise-fault-points {
+    display: none;
+}
+
+#exercise-container.exam.evaluation #exercise-header #exercise-fault-points {
+    display: flex;
+    align-items: center;
+    margin-left: 40px;
+}
+
 #exercise-header #cancel-exercise-btn {
     display: flex;
     align-items: center;

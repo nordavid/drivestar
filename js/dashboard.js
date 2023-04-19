@@ -111,7 +111,7 @@ async function loadTotalProgress() {
         const progressWidget = document.querySelector("#total-progress");
         progressWidget.querySelector("h2").innerText = roundedPercentage + "%";
         progressWidget.querySelector(".bar").style.width = roundedPercentage + "%";
-        progressWidget.querySelector("#correct-answers").innerText = correct_answers_count;
+        progressWidget.querySelector("#correct-answers").innerText = correct_answers_count ?? 0;
         progressWidget.querySelector("#remaining-questions").innerText =
             total_questions_count - correct_answers_count;
     } catch (error) {

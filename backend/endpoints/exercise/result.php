@@ -4,7 +4,11 @@ function getExerciseResultHandler($id)
     global $conn;
 
     try {
-        $stmt = $conn->prepare("SELECT question_id, is_correct FROM user_answer WHERE exercise_id = :id;");
+        $stmt = $conn->prepare(
+            "SELECT ua.question_id, ua.is_correct, q.fault_points 
+            FROM user_answer ua JOIN question q ON ua.question_id = q.id 
+            WHERE exercise_id = :id;"
+        );
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
 

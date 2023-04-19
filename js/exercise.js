@@ -46,6 +46,7 @@ class Exercise {
 
             this.initQuestionSelector();
         }
+        this.exerciseContainer.classList.remove("evaluation");
         this.exerciseWindow.style.display = "flex";
         this.displayRemainingTime(this.duration);
         this.startTimer(this.duration, this.timeRunOut);
@@ -154,6 +155,10 @@ class Exercise {
         this.cancelButton.querySelector("p").innerText = text;
     }
 
+    updateFaultPointsText(faultPoints) {
+        document.getElementById("exercise-fault-points").innerText = faultPoints + " Fehlerpunkte";
+    }
+
     // Question navigation methods
     async navigateToQuestion(number) {
         this.currentQuestionNumber = number;
@@ -225,7 +230,6 @@ class Exercise {
 
     setQuestionSelectorItemsIsCorrect(exerciseResults) {
         exerciseResults.forEach((exerciseResult) => {
-            console.log(exerciseResult.question_id);
             const selectorItem = document.querySelector(
                 `.selector-item[data-question-id="${exerciseResult.question_id}"]`
             );
@@ -376,11 +380,14 @@ class Exercise {
         this.isExamEvaluationMode = true;
         this.postExerciseFinishedRequest();
 
+        const exerciseResults = await this.fetchExerciseResult();
+
+        this.setQuestionSelectorItemsIsCorrect(exerciseResults);
+        clearTimeout(this.timer);
+        this.exerciseContainer.classList.add("evaluation");
         this.updateConfirmButtonText("Nächste Frage");
         this.updateCancelButtonText("Prüfung beenden");
-
-        const exerciseResults = await this.fetchExerciseResult();
-        this.setQuestionSelectorItemsIsCorrect(exerciseResults);
+        this.updateFaultPointsText(this.calculatedTotalFaultPoints(exerciseResults));
 
         this.currentQuestionNumber = 1;
         this.navigateToQuestion(this.currentQuestionNumber);
@@ -460,6 +467,12 @@ class Exercise {
         return this.answeredQuestions.length >= this.questionIds.length;
     }
 
+    calculatedTotalFaultPoints(exerciseResults) {
+        return exerciseResults
+            .map((result) => (result.is_correct ? 0 : result.fault_points))
+            .reduce((current, next) => current + next, 0);
+    }
+
     startTimer(duration, callback) {
         var timer = duration;
         var boundFunc = this.displayRemainingTime.bind(this);
@@ -475,6 +488,6 @@ class Exercise {
     }
 
     timeRunOut() {
-        alert("Over");
+        this.handleCancelExercise();
     }
 }
