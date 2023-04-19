@@ -49,7 +49,7 @@ class Exercise {
         this.exerciseContainer.classList.remove("evaluation");
         this.exerciseWindow.style.display = "flex";
         this.displayRemainingTime(this.duration);
-        this.startTimer(this.duration, this.timeRunOut);
+        this.startTimer(this.duration, this.timeRunOut.bind(this));
         this.displayAnsweredQuestionCount();
         this.navigateToQuestion(this.currentQuestionNumber);
         this.cancelButton.addEventListener("click", this.handleCancelExercise);
