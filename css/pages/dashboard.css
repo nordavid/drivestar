@@ -1244,15 +1244,57 @@ main section#exam .info-container p:last-of-type {
     height: 12px;
     border-radius: 3px;
     margin-right: 8px;
+    margin-left: 24px;
 }
 
 #exercise-question-selector .header .color-caption .color-example.yellow {
     background-color: var(--primary);
-    margin-left: 24px;
+}
+
+#exercise-container.evaluation .color-caption .color-example.yellow {
+    display: none;
+}
+
+#exercise-container.evaluation .color-caption .color-example.yellow + p {
+    display: none;
 }
 
 #exercise-question-selector .header .color-caption .color-example.black {
     background-color: var(--black);
+}
+
+#exercise-question-selector .header .color-caption .color-example.correct {
+    display: none;
+    background-color: var(--secondary);
+}
+
+#exercise-question-selector .header .color-caption .color-example.correct + p {
+    display: none;
+}
+
+#exercise-question-selector .header .color-caption .color-example.false {
+    display: none;
+    background-color: var(--accent);
+}
+
+#exercise-question-selector .header .color-caption .color-example.false + p {
+    display: none;
+}
+
+#exercise-container.evaluation .color-caption .color-example.false {
+    display: block;
+}
+
+#exercise-container.evaluation .color-caption .color-example.false + p {
+    display: block;
+}
+
+#exercise-container.evaluation .color-caption .color-example.correct {
+    display: block;
+}
+
+#exercise-container.evaluation .color-caption .color-example.correct + p {
+    display: block;
 }
 
 #exercise-question-selector #question-id-selector {
