@@ -21,8 +21,8 @@ class Exercise {
         this.exerciseWindow = document.getElementById("exercise-window");
         this.exerciseContainer = document.getElementById("exercise-container");
         this.questionContainer = document.getElementById("exercise-question-container");
-        this.confirmBtn = document.getElementById("confirm-exercise-answer");
-        this.quitBtn = document.getElementById("cancel-exercise-btn");
+        this.confirmButton = document.getElementById("confirm-exercise-answer");
+        this.cancelButton = document.getElementById("cancel-exercise-btn");
         this.answersContainer = document.getElementById("exercise-answers-container");
 
         this.handleCancelExercise = this.handleCancelExercise.bind(this);
@@ -37,12 +37,13 @@ class Exercise {
         if (this.type == Exercise.Type.Training) {
             this.exerciseContainer.classList.add("training");
             this.exerciseContainer.classList.remove("exam");
-            document.querySelector("#cancel-exercise-btn p").innerText = "Training abbrechen";
+            this.updateCancelButtonText("Training abbrechen");
         } else {
             this.exerciseContainer.classList.add("exam");
             this.exerciseContainer.classList.remove("training");
-            this.confirmBtn.innerText = "Weiter";
-            document.querySelector("#cancel-exercise-btn p").innerText = "Prüfung abbrechen";
+            this.updateConfirmButtonText("Antwort speichern");
+            this.updateCancelButtonText("Prüfung abbrechen");
+
             this.initQuestionSelector();
         }
         this.exerciseWindow.style.display = "flex";
@@ -50,8 +51,8 @@ class Exercise {
         this.startTimer(this.duration, this.timeRunOut);
         this.displayAnsweredQuestionCount();
         this.navigateToQuestion(this.currentQuestionNumber);
-        this.quitBtn.addEventListener("click", this.handleCancelExercise);
-        this.confirmBtn.addEventListener("click", this.handleExerciseConfirmation);
+        this.cancelButton.addEventListener("click", this.handleCancelExercise);
+        this.confirmButton.addEventListener("click", this.handleExerciseConfirmation);
     }
 
     // Methods that change view
@@ -145,6 +146,14 @@ class Exercise {
         document.getElementById("exercise-timer").textContent = minutes + ":" + seconds;
     }
 
+    updateConfirmButtonText(text) {
+        this.confirmButton.innerText = text;
+    }
+
+    updateCancelButtonText(text) {
+        this.cancelButton.querySelector("p").innerText = text;
+    }
+
     // Question navigation methods
     async navigateToQuestion(number) {
         this.currentQuestionNumber = number;
@@ -186,7 +195,9 @@ class Exercise {
 
         for (let i = 1; i <= this.questionIds.length; i++) {
             const selectorEl = `
-            <div data-id="${i}" class="selector-item ${i == 1 ? "current" : ""}">${i}</div>
+            <div data-question-id="${
+                this.questionIds[i - 1]
+            }" data-id="${i}" class="selector-item ${i == 1 ? "current" : ""}">${i}</div>
             `;
 
             container.insertAdjacentHTML("beforeend", selectorEl);
@@ -210,6 +221,16 @@ class Exercise {
 
         const selectorItem = document.querySelector(`.selector-item[data-id="${questionNumber}"]`);
         selectorItem.classList.add("current");
+    }
+
+    setQuestionSelectorItemsIsCorrect(exerciseResults) {
+        exerciseResults.forEach((exerciseResult) => {
+            console.log(exerciseResult.question_id);
+            const selectorItem = document.querySelector(
+                `.selector-item[data-question-id="${exerciseResult.question_id}"]`
+            );
+            selectorItem.classList.add(exerciseResult.is_correct ? "correct" : "false");
+        });
     }
 
     addAnswerButtonsListener() {
@@ -307,9 +328,9 @@ class Exercise {
     handleTrainingConfirmation(e) {
         if (!this.isSolutionMode) {
             if (this.currentQuestionNumber == this.questionIds.length) {
-                e.currentTarget.innerText = "Training beenden";
+                this.updateConfirmButtonText("Training beenden");
             } else {
-                e.currentTarget.innerText = "Nächste Frage";
+                this.updateConfirmButtonText("Nächste Frage");
             }
 
             this.displaySolution();
@@ -319,7 +340,7 @@ class Exercise {
         // solution mode active
         this.isSolutionMode = false;
 
-        e.currentTarget.innerText = "Lösung anzeigen";
+        this.updateConfirmButtonText("Lösung anzeigen");
 
         if (this.isLastQuestion()) {
             this.handleExerciseFinish();
@@ -331,23 +352,38 @@ class Exercise {
         }
     }
 
-    async handleExamConfirmation(e) {
-        if (this.areAllQuestionsAnswered()) {
-            this.postExerciseFinishedRequest();
-            this.isExamEvaluationMode = true;
-            // this.handleExerciseFinish();
-            return;
-        }
+    async handleExamConfirmation() {
+        if (!this.isExamEvaluationMode) {
+            if (this.areAllQuestionsAnswered()) {
+                this.startExamEvaluationMode();
+                // this.handleExerciseFinish();
+                return;
+            }
 
-        this.markQuestionAsAnswered(this.currentQuestionNumber);
-        if (this.areAllQuestionsAnswered()) {
-            e.currentTarget.innerText = "Prüfung auswerten";
+            this.markQuestionAsAnswered(this.currentQuestionNumber);
+            if (this.areAllQuestionsAnswered()) {
+                this.updateConfirmButtonText("Prüfung auswerten");
+            }
         }
 
         if (!this.isLastQuestion()) {
             this.currentQuestionNumber++;
             this.navigateToQuestion(this.currentQuestionNumber);
         }
+    }
+
+    async startExamEvaluationMode() {
+        this.isExamEvaluationMode = true;
+        this.postExerciseFinishedRequest();
+
+        this.updateConfirmButtonText("Nächste Frage");
+        this.updateCancelButtonText("Prüfung beenden");
+
+        const exerciseResults = await this.fetchExerciseResult();
+        this.setQuestionSelectorItemsIsCorrect(exerciseResults);
+
+        this.currentQuestionNumber = 1;
+        this.navigateToQuestion(this.currentQuestionNumber);
     }
 
     handleExerciseFinish() {
@@ -357,8 +393,8 @@ class Exercise {
 
     cleanup() {
         clearTimeout(this.timer);
-        this.quitBtn.removeEventListener("click", this.handleCancelExercise);
-        this.confirmBtn.removeEventListener("click", this.handleExerciseConfirmation);
+        this.cancelButton.removeEventListener("click", this.handleCancelExercise);
+        this.confirmButton.removeEventListener("click", this.handleExerciseConfirmation);
 
         this.removeQuestionSelectorListeners();
     }
@@ -390,6 +426,14 @@ class Exercise {
         try {
             const response = await postRequest("exercise/finish", formData, true);
             console.log(response);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    async fetchExerciseResult() {
+        try {
+            return await getRequest("exercise/result", { id: this.id }, true);
         } catch (error) {
             console.log(error.message);
         }

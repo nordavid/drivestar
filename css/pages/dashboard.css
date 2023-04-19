@@ -1279,6 +1279,16 @@ main section#exam .info-container p:last-of-type {
     color: var(--black);
 }
 
+#exercise-question-selector #question-id-selector .selector-item.correct {
+    background-color: var(--secondary);
+    color: var(--white);
+}
+
+#exercise-question-selector #question-id-selector .selector-item.false {
+    background-color: var(--accent);
+    color: var(--white);
+}
+
 #exercise-question-selector #question-id-selector .selector-item.current {
     background-color: var(--black);
     color: var(--white);
