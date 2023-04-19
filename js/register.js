@@ -49,6 +49,12 @@ function getDateString() {
 const registerForm = document.querySelector("#register-form");
 registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    if (!isSamePassword()) {
+        showToast("Die Passwörter stimmen nicht überein!");
+        return;
+    }
+
     const formData = new FormData(registerForm);
 
     const fileInput = document.getElementById("form-profilepicture");
@@ -65,6 +71,13 @@ registerForm.addEventListener("submit", async (e) => {
     }
 });
 
+function isSamePassword() {
+    const pw = document.getElementById("form-password");
+    const rePw = document.getElementById("form-repassword");
+    return pw.value == rePw.value;
+}
+
+// Redirect to dashboard if token is existing and valid
 async function redirectIfAuthenticated() {
     const isAuthenticated = await isLoggedIn();
     if (isAuthenticated) {
