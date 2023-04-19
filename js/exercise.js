@@ -156,7 +156,8 @@ class Exercise {
     }
 
     updateFaultPointsText(faultPoints) {
-        document.getElementById("exercise-fault-points").innerText = faultPoints + " Fehlerpunkte";
+        document.getElementById("exercise-fault-points").querySelector("p").innerText =
+            faultPoints + " Fehlerpunkte";
     }
 
     // Question navigation methods
