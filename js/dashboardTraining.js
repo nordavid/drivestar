@@ -6,7 +6,10 @@ function initTrainingSection() {
     addEventListeners();
     addTrainingCategoryListeners();
 
+    // display default category
     loadTrainingCategories("Grundstoff");
+    trainingSectionBtns.forEach((item) => item.classList.remove("active"));
+    trainingSectionBtns[1].classList.add("active");
 }
 
 let questionSlider,

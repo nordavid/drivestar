@@ -152,6 +152,15 @@ main section.dashboard-section {
     display: none;
 }
 
+main section.dashboard-section.active.placeholder {
+    color: var(--grey);
+    font-family: "Inter", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    display: block;
+    padding: 40px 64px;
+}
+
 /* Home */
 main section#dashboard.active {
     display: grid;
@@ -332,6 +341,10 @@ main section#dashboard.active {
 
 .widget#completed-trainings .training p:first-of-type {
     color: var(--black);
+}
+
+.widget#category-stats {
+    align-self: start;
 }
 
 .widget#category-stats .header {
